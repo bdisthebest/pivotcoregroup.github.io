@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="stylish.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pivot Core Group</title>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="container header-row">
+      <div class="brand">
+		  <img class="brand-logo" src="images/hero.jpeg" alt="Pivot Core Group logo">
+		  <div class="brand-text">
+ 		   <div class="brand-name">Pivot Core Group</div>
+  			  <div class="brand-tagline">Where strategy becomes execution</div>
+  		</div>
+	</div>
+
+      <nav class="nav">
+        <a href="#services">Services</a>
+        <a href="#mission">Mission</a>
+        <a href="#contact" class="btn btn-small">Contact</a>
+      </nav>
+    </div>
+	
+  </header>
+
+  <main>
+	<div class="hero-backdrop">
+  <div class="hero-backdrop-image"></div>
+	</div>
+
+    <section class="hero">
+      <div class="container hero-grid">
+
+        <div class="hero-copy">
+          <h1>Analytics-driven strategy. Execution-ready delivery.</h1>
+          <p class="lead">
+            Pivot Core Group helps teams turn data into decisions—then decisions into measurable outcomes.
+            We deliver consulting engagements that are structured, fast-moving, and built for operational impact.
+          </p>
+      </div>
+		
+    </section>
+
+   <section id="services" class="section">
+  <div class="container">
+    <h2>Services</h2>
+
+    <div class="carousel" aria-label="Services carousel">
+      <article class="carousel-item">
+        <div class="carousel-media">
+          <img src="images/analytics.jpeg" alt="Analytics dashboard and KPI review">
+        </div>
+        <h3>Business analytics</h3>
+        <p>KPI frameworks, metric definitions, and analytics roadmaps to improve decision velocity.</p>
+      </article>
+
+      <article class="carousel-item">
+        <div class="carousel-media">
+          <img src="images/dashboards.jpg" alt="Executive dashboard reporting">
+        </div>
+        <h3>Dashboards &amp; reporting</h3>
+        <p>Executive-ready dashboards and reporting systems that make performance visible and actionable.</p>
+      </article>
+
+		<article class="carousel-item">
+			<div class="carousel-media">
+			<img src="images/thinking.jpeg" alt="Strategic Thinking">
+			</div>
+			<h3>Strategic Thinking</h3>
+			<p>Teaches teams the perspective focusing tools needed to align upon the business mission.</p>
+		</article>
+
+      <article class="carousel-item">
+        <div class="carousel-media">
+          <img src="images/operations.jpg" alt="Workflow optimization and process mapping">
+        </div>
+        <h3>Operational optimization</h3>
+        <p>Process discovery and workflow redesign to reduce cycle time and improve consistency.</p>
+      </article>
+
+		<article class="carousel-item">
+		<div class="carousel-media">
+			<img src="images/engineering.jpg" alt="Engineering to data to reflect accuracy">
+			</div>
+			<h3>Data Engineering</h3>
+			<p>Test and triangulant the relavent metrics to ensure analysis accurately reflect output</p>
+		</article>
+    </div>
+
+  </div>
+</section>
+
+    <section id="mission" class="section section-muted">
+      <div class="container">
+        <h2>Mission</h2>
+        <div class="prose">
+          <p>
+            Pivot Core Group exists to help organizations translate strategy into execution using analytics,
+            operational discipline, and clear deliverables.
+          </p>
+          <p>
+            We believe leaders deserve reporting that reflects reality, teams deserve workflows that reduce friction,
+            and customers deserve outcomes that improve with every iteration.
+          </p>
+          <p>
+            Our work is structured, transparent, and measurable—so stakeholders can see progress, validate impact,
+            and scale what works.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <h2>Contact</h2>
+
+        <div class="contact-card">
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">PivotCoreGroup@gmail.com</div>
+          </div>
+
+          <div>
+            <div class="contact-label">Response time</div>
+            <div class="contact-value">1–2 business days</div>
+          </div>
+
+          <div class="contact-cta">
+            <a class="btn" href="mailto:PivotCoreGroup@gmail.com?subject=Pivot%20Core%20Group%20Inquiry">
+              Email Pivot Core Group
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <div>© 2026 Pivot Core Group</div>
+      <div class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#mission">Mission</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+<script src="carousel.js"></script>
+
+<script>
+  (function () {
+    const header = document.querySelector('.site-header');
+    if (!header) return;
+
+    // When scrolled beyond this many pixels, shrink to "current" size
+    const SHRINK_AT = 60;
+
+    const onScroll = () => {
+      header.classList.toggle('is-shrunk', window.scrollY > SHRINK_AT);
+    };
+
+    // Run once on load (covers refresh mid-page), then on scroll
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+</script>
+</body>
+</html>
