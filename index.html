@@ -285,16 +285,27 @@
       font-size:13px;
     }
     .spark{
-      height:160px;
-      border-radius:12px;
-      border:1px solid rgba(201,163,90,.30);
-      background:
-        radial-gradient(140px 90px at 72% 62%, rgba(201,163,90,.14), transparent 62%),
-        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.44));
-      position:relative;
-      overflow:hidden;
-    }
-    .spark svg{ position:absolute; inset:0; width:100%; height:100%; opacity:.92; }
+  height: 230px;              /* bigger, like your screenshot */
+  border-radius: 22px;
+  border: 1px solid rgba(201,163,90,.26);
+  background:
+    radial-gradient(120px 90px at 72% 60%, rgba(201,163,90,.12), transparent 65%),
+    linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.38));
+  position: relative;
+  overflow: hidden;
+}
+
+.spark svg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  opacity:1;
+}
+
+.spark--pro{
+  border-color: rgba(201,163,90,.20);
+}
     .checklist{
       margin:12px 0 0;
       padding:0;
@@ -700,32 +711,99 @@
           <p class="title">Performance Snapshot</p>
           <p class="subtitle">Quarterly trend</p>
 
-          <div class="spark" aria-hidden="true">
-            <svg viewBox="0 0 600 240" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="rgba(201,163,90,.55)"/>
-                  <stop offset="100%" stop-color="rgba(201,163,90,.06)"/>
-                </linearGradient>
-              </defs>
+          <div class="spark spark--pro" aria-hidden="true">
+  <svg viewBox="0 0 900 360" preserveAspectRatio="none">
+    <defs>
+      <!-- rounded plot mask -->
+      <clipPath id="clip">
+        <rect x="30" y="50" width="840" height="230" rx="18" ry="18"></rect>
+      </clipPath>
 
-              <path d="M0 190 C60 170, 95 176, 140 152 C190 125, 235 150, 280 115 C330 82, 365 110, 420 78 C480 40, 520 66, 600 28"
-                    fill="none" stroke="rgba(201,163,90,.90)" stroke-width="3.5"/>
+      <!-- gold gradient fill -->
+      <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(201,163,90,.46)"/>
+        <stop offset="55%" stop-color="rgba(201,163,90,.22)"/>
+        <stop offset="100%" stop-color="rgba(201,163,90,0)"/>
+      </linearGradient>
 
-              <path d="M0 240 L0 190 C60 170, 95 176, 140 152 C190 125, 235 150, 280 115 C330 82, 365 110, 420 78 C480 40, 520 66, 600 28 L600 240 Z"
-                    fill="url(#g)" />
+      <!-- line glow -->
+      <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="3.5" result="blur"/>
+        <feColorMatrix in="blur" type="matrix"
+          values="
+            1 0 0 0 0
+            0 1 0 0 0
+            0 0 1 0 0
+            0 0 0 .85 0" result="soft"/>
+        <feMerge>
+          <feMergeNode in="soft"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
 
-              <g opacity=".22" stroke="white" stroke-width="1">
-                <line x1="0" y1="60" x2="600" y2="60"/>
-                <line x1="0" y1="120" x2="600" y2="120"/>
-                <line x1="0" y1="180" x2="600" y2="180"/>
-                <line x1="120" y1="0" x2="120" y2="240"/>
-                <line x1="240" y1="0" x2="240" y2="240"/>
-                <line x1="360" y1="0" x2="360" y2="240"/>
-                <line x1="480" y1="0" x2="480" y2="240"/>
-              </g>
-            </svg>
-          </div>
+      <!-- plot vignette -->
+      <linearGradient id="plotVignette" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="rgba(0,0,0,.10)"/>
+        <stop offset="100%" stop-color="rgba(0,0,0,.35)"/>
+      </linearGradient>
+    </defs>
+
+    <!-- plot frame -->
+    <rect x="30" y="50" width="840" height="230" rx="18" ry="18"
+          fill="rgba(0,0,0,.22)" stroke="rgba(201,163,90,.35)" stroke-width="2"/>
+
+    <!-- grid (clipped to rounded plot) -->
+    <g clip-path="url(#clip)" opacity=".32" stroke="rgba(255,255,255,.28)" stroke-width="1">
+      <!-- horizontal -->
+      <line x1="30" y1="96"  x2="870" y2="96"/>
+      <line x1="30" y1="142" x2="870" y2="142"/>
+      <line x1="30" y1="188" x2="870" y2="188"/>
+      <line x1="30" y1="234" x2="870" y2="234"/>
+      <!-- vertical -->
+      <line x1="170" y1="50" x2="170" y2="280"/>
+      <line x1="310" y1="50" x2="310" y2="280"/>
+      <line x1="450" y1="50" x2="450" y2="280"/>
+      <line x1="590" y1="50" x2="590" y2="280"/>
+      <line x1="730" y1="50" x2="730" y2="280"/>
+    </g>
+
+    <!-- AREA + LINE (clipped) -->
+    <g clip-path="url(#clip)">
+      <!-- area fill -->
+      <path d="
+        M 30 238
+        C 95 226, 140 220, 170 210
+        C 230 190, 270 196, 310 182
+        C 360 165, 395 150, 450 148
+        C 510 146, 545 138, 590 118
+        C 645 92, 690 98, 730 86
+        C 785 70, 825 62, 870 52
+        L 870 280
+        L 30 280
+        Z"
+        fill="url(#areaFill)"/>
+
+      <!-- soft vignette over plot -->
+      <rect x="30" y="50" width="840" height="230" fill="url(#plotVignette)" opacity=".45"/>
+
+      <!-- main line -->
+      <path d="
+        M 30 238
+        C 95 226, 140 220, 170 210
+        C 230 190, 270 196, 310 182
+        C 360 165, 395 150, 450 148
+        C 510 146, 545 138, 590 118
+        C 645 92, 690 98, 730 86
+        C 785 70, 825 62, 870 52"
+        fill="none"
+        stroke="rgba(201,163,90,.92)"
+        stroke-width="5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        filter="url(#glow)"/>
+    </g>
+  </svg>
+</div>
 
           <ul class="checklist">
             <li><span class="check">✓</span> Strategy-to-execution delivery</li>
