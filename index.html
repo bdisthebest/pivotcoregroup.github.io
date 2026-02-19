@@ -12,7 +12,7 @@
        - AvenirNextLTPro-Regular.woff2
        - AvenirNextLTPro-Demi.woff2
        - AvenirNextLTPro-Bold.woff2
-       If you use different filenames, update the src URLs below.
+       If you don’t have these, it will fall back to Avenir Next/system.
     ========================================================= */
     @font-face{
       font-family:"Avenir Next LT Pro";
@@ -37,95 +37,101 @@
     }
 
     :root{
-      --bg:#0b0f14;
-      --ink:#0b0f14;
-      --paper:#f3efe8;
-      --paper-2:#efe9e0;
-      --nav:#0c121a;
-      --nav-2:#0a0f16;
+      /* Dark green palette (closer to your green mock, not blue) */
+      --bg-0:#050907;
+      --bg-1:#07100b;
+      --bg-2:#0a1710;
+      --bg-3:#0d1f16;
+
+      --paper-0:#f3efe8;
+      --paper-1:#efe7de;
+
+      /* “Gold” accent */
       --gold:#c9a35a;
       --gold-2:#b8924a;
-      --muted:rgba(255,255,255,.72);
-      --muted2:rgba(255,255,255,.60);
+
+      --text:#0e1311;
+      --muted:#5c645f;
+
+      --w:1180px;
+      --r:16px;
+
       --stroke:rgba(201,163,90,.42);
-      --shadow:0 18px 40px rgba(0,0,0,.35);
-      --radius:16px;
-      --max:1180px;
+      --stroke2:rgba(255,255,255,.10);
+
+      --shadow: 0 20px 50px rgba(0,0,0,.45);
+      --shadow2: 0 14px 32px rgba(0,0,0,.25);
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
       font-family:"Avenir Next LT Pro","Avenir Next",Avenir,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      color:#101318;
-      background:var(--paper);
+      color:var(--text);
+      background:var(--paper-0);
     }
-    a{color:inherit;text-decoration:none}
-    .container{max-width:var(--max);margin:0 auto;padding:0 22px}
+    a{ color:inherit; text-decoration:none; }
+    .container{ max-width:var(--w); margin:0 auto; padding:0 22px; }
 
     /* =========================================================
-       TOP UTILITY BAR (email + phone)
+       TOP CONTACT BAR
     ========================================================= */
     .topbar{
-      background:linear-gradient(180deg, rgba(12,18,26,.98), rgba(10,15,22,.98));
-      color:rgba(255,255,255,.85);
+      background:linear-gradient(180deg, rgba(10,23,16,.98), rgba(7,16,11,.98));
+      color:rgba(255,255,255,.82);
       border-bottom:1px solid rgba(255,255,255,.08);
       font-size:12.5px;
       letter-spacing:.2px;
     }
     .topbar .row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:10px 22px;
-      gap:14px;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:10px 0;
+      gap:12px;
     }
     .topbar .left, .topbar .right{
-      display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+      display:flex; align-items:center; gap:14px; flex-wrap:wrap;
     }
     .pill{
-      display:inline-flex;align-items:center;gap:8px;
+      display:inline-flex; align-items:center; gap:8px;
       padding:6px 10px;
-      border:1px solid rgba(255,255,255,.12);
       border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
       background:rgba(255,255,255,.04);
+      user-select:none;
     }
     .dot{
-      width:8px;height:8px;border-radius:50%;
+      width:8px; height:8px; border-radius:50%;
       background:var(--gold);
-      box-shadow:0 0 0 3px rgba(201,163,90,.16);
+      box-shadow:0 0 0 3px rgba(201,163,90,.15);
     }
 
     /* =========================================================
-       MAIN NAV
+       STICKY NAV
     ========================================================= */
     header{
-      position:sticky;top:0;z-index:40;
-      background:linear-gradient(180deg, rgba(12,18,26,.98), rgba(10,15,22,.98));
+      position:sticky; top:0; z-index:50;
+      background:linear-gradient(180deg, rgba(10,23,16,.98), rgba(7,16,11,.98));
       border-bottom:1px solid rgba(255,255,255,.10);
       backdrop-filter: blur(10px);
     }
     .navwrap{
-      display:flex;align-items:center;justify-content:space-between;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
       padding:14px 0;
-      gap:14px;
     }
     .brand{
-      display:flex;align-items:center;gap:12px;min-width:240px;
+      display:flex; align-items:center; gap:12px;
+      min-width:260px;
     }
     .brandmark{
-      width:44px;height:44px;border-radius:999px;
+      width:44px; height:44px; border-radius:999px;
+      display:grid; place-items:center;
       border:1px solid rgba(201,163,90,.55);
-      display:grid;place-items:center;
-      background:radial-gradient(circle at 30% 30%, rgba(201,163,90,.22), rgba(201,163,90,.04));
+      background:radial-gradient(circle at 30% 30%, rgba(201,163,90,.18), rgba(201,163,90,.04));
       overflow:hidden;
     }
-    /* If you have a real logo image, set it here */
-    .brandmark img{
-      width:100%;height:100%;object-fit:cover;display:block;
-      filter:saturate(1.05) contrast(1.05);
-    }
+    .brandmark img{ width:100%; height:100%; object-fit:cover; display:block; }
     .brandname{
       font-weight:700;
       letter-spacing:.8px;
@@ -134,67 +140,70 @@
       font-size:17px;
       line-height:1.05;
     }
-    .navlinks{
-      display:flex;align-items:center;gap:18px;
+
+    nav.primary{
+      display:flex; align-items:center; gap:18px;
       color:rgba(255,255,255,.80);
       font-size:14px;
     }
-    .navlinks a{
+    nav.primary a{
       padding:10px 8px;
       border-radius:10px;
-      transition:background .2s ease, color .2s ease;
+      transition:background .18s ease, color .18s ease;
     }
-    .navlinks a:hover{
+    nav.primary a:hover{
       background:rgba(255,255,255,.06);
-      color:rgba(255,255,255,.92);
+      color:rgba(255,255,255,.95);
     }
+
     .cta{
-      display:inline-flex;align-items:center;justify-content:center;
+      display:inline-flex; align-items:center; justify-content:center;
       padding:11px 14px;
       border-radius:10px;
-      border:1px solid rgba(201,163,90,.60);
+      border:1px solid rgba(201,163,90,.65);
       color:rgba(255,255,255,.92);
       background:linear-gradient(180deg, rgba(201,163,90,.16), rgba(201,163,90,.05));
       box-shadow: 0 10px 28px rgba(0,0,0,.25);
       font-weight:600;
       font-size:13px;
       white-space:nowrap;
-      transition:transform .15s ease, background .2s ease, border-color .2s ease;
+      transition:transform .14s ease, border-color .18s ease;
     }
-    .cta:hover{transform:translateY(-1px);border-color:rgba(201,163,90,.80)}
+    .cta:hover{ transform:translateY(-1px); border-color:rgba(201,163,90,.88); }
 
     /* =========================================================
-       HERO (mirrors screenshot: dark chart background + gold accents)
+       HERO (dark green + chart background + gold accents)
     ========================================================= */
     .hero{
       position:relative;
-      background:var(--bg);
       color:white;
+      background:var(--bg-0);
       overflow:hidden;
       border-bottom:1px solid rgba(255,255,255,.08);
     }
-    .hero::before{
-      content:"";
-      position:absolute;inset:0;
-      background:
-        radial-gradient(900px 420px at 18% 35%, rgba(201,163,90,.18), transparent 60%),
-        radial-gradient(700px 340px at 78% 55%, rgba(201,163,90,.10), transparent 65%),
-        linear-gradient(180deg, rgba(10,15,22,.80), rgba(10,15,22,.96));
-      z-index:1;
-    }
+    /* background image layer */
     .hero::after{
       content:"";
-      position:absolute;inset:0;
-      /* Use your existing hero image for the chart background */
-      background-image:url("images/hero.jpeg");
+      position:absolute; inset:0;
+      background-image:url("images/hero-bg.jpg"); /* <-- add this file */
       background-size:cover;
       background-position:center;
-      opacity:.38;
+      opacity:.42;
+      filter:contrast(1.05) saturate(1.02);
       z-index:0;
-      filter:contrast(1.05) saturate(1.05);
     }
-    .heroinner{
-      position:relative;z-index:2;
+    /* dark green overlays + glow */
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(950px 520px at 20% 35%, rgba(201,163,90,.12), transparent 62%),
+        radial-gradient(760px 420px at 82% 55%, rgba(201,163,90,.08), transparent 70%),
+        linear-gradient(180deg, rgba(5,9,7,.62), rgba(5,9,7,.90));
+      z-index:1;
+    }
+    .hero .inner{
+      position:relative; z-index:2;
       padding:72px 0 56px;
     }
     .hero-grid{
@@ -204,20 +213,20 @@
       align-items:center;
     }
     .kicker{
-      color:rgba(255,255,255,.72);
+      color:rgba(255,255,255,.70);
       letter-spacing:.18em;
       text-transform:uppercase;
       font-size:12px;
       margin:0 0 14px;
     }
-    .hero h1{
+    h1{
       margin:0 0 14px;
       font-size:56px;
       line-height:1.02;
       letter-spacing:-.02em;
       font-weight:700;
     }
-    .hero h1 .gold{color:var(--gold)}
+    .gold{ color:var(--gold); }
     .subline{
       margin:0 0 26px;
       font-size:17px;
@@ -225,8 +234,9 @@
       color:rgba(255,255,255,.74);
       max-width:54ch;
     }
+
     .btn{
-      display:inline-flex;align-items:center;justify-content:center;
+      display:inline-flex; align-items:center; justify-content:center;
       padding:13px 18px;
       border-radius:12px;
       border:1px solid rgba(201,163,90,.70);
@@ -234,10 +244,11 @@
       color:rgba(255,255,255,.92);
       font-weight:600;
       font-size:14px;
-      box-shadow:0 18px 40px rgba(0,0,0,.35);
-      transition:transform .15s ease, border-color .2s ease;
+      box-shadow:var(--shadow2);
+      transition:transform .14s ease, border-color .18s ease;
+      cursor:pointer;
     }
-    .btn:hover{transform:translateY(-1px);border-color:rgba(201,163,90,.90)}
+    .btn:hover{ transform:translateY(-1px); border-color:rgba(201,163,90,.92); }
     .btn.secondary{
       background:transparent;
       border:1px solid rgba(255,255,255,.18);
@@ -245,64 +256,73 @@
       box-shadow:none;
     }
 
-    /* Right side subtle “graph panel” (keeps the screenshot feel without needing a second image) */
-    .hero-panel{
-      border-radius:var(--radius);
+    /* Right “Performance Snapshot” panel */
+    .panel{
+      border-radius:var(--r);
       border:1px solid rgba(255,255,255,.12);
       background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
       padding:18px 18px 14px;
       box-shadow:var(--shadow);
       backdrop-filter: blur(10px);
     }
-    .hero-panel .mini-title{
-      display:flex;align-items:center;justify-content:space-between;
-      gap:12px;
-      margin:0 0 10px;
-      color:rgba(255,255,255,.86);
-      font-weight:600;
+    .panel .title{
+      margin:0 0 6px;
+      font-weight:700;
+      font-size:18px;
+      color:rgba(255,255,255,.88);
+      letter-spacing:-.01em;
+    }
+    .panel .subtitle{
+      margin:0 0 12px;
+      color:rgba(255,255,255,.62);
       font-size:13px;
-      letter-spacing:.02em;
     }
     .spark{
-      height:160px;border-radius:12px;
+      height:160px;
+      border-radius:12px;
       border:1px solid rgba(201,163,90,.30);
       background:
-        radial-gradient(120px 80px at 70% 65%, rgba(201,163,90,.16), transparent 60%),
-        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.45));
+        radial-gradient(140px 90px at 72% 62%, rgba(201,163,90,.14), transparent 62%),
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.44));
       position:relative;
       overflow:hidden;
     }
-    .spark svg{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
-    .hero-panel .list{
+    .spark svg{ position:absolute; inset:0; width:100%; height:100%; opacity:.92; }
+    .checklist{
       margin:12px 0 0;
       padding:0;
       list-style:none;
       display:grid;
-      gap:8px;
-      color:rgba(255,255,255,.72);
-      font-size:13px;
+      gap:9px;
+      color:rgba(255,255,255,.74);
+      font-size:13.5px;
     }
-    .hero-panel .list li{
-      display:flex;gap:10px;align-items:flex-start;
-    }
+    .checklist li{ display:flex; gap:10px; align-items:flex-start; }
     .check{
-      width:18px;height:18px;border-radius:999px;
+      width:18px; height:18px; border-radius:999px;
       border:1px solid rgba(201,163,90,.55);
-      display:grid;place-items:center;
+      display:grid; place-items:center;
       color:var(--gold);
       margin-top:1px;
       background:rgba(201,163,90,.08);
       flex:0 0 auto;
-      font-weight:700;
+      font-weight:800;
+      font-size:12px;
+      line-height:1;
     }
+    .panel .panel-cta{
+      margin-top:14px;
+      width:100%;
+    }
+    .btn.wide{ width:100%; }
 
     /* =========================================================
-       SECTION 2: “Transforming Data into Business Momentum”
-       (light paper background + right-side card)
+       SECTION: Transforming Data into Business Momentum
+       (paper background + right card)
     ========================================================= */
     .section{
       padding:56px 0;
-      background:var(--paper);
+      background:var(--paper-0);
     }
     .split{
       display:grid;
@@ -315,52 +335,56 @@
       font-size:38px;
       line-height:1.10;
       letter-spacing:-.02em;
-      color:#101318;
       font-weight:700;
+      color:#101614;
     }
     .rule{
-      width:88px;height:2px;background:rgba(16,19,24,.16);
+      width:88px;
+      height:2px;
+      background:rgba(16,22,20,.16);
       margin:16px 0 18px;
     }
     .body{
-      color:rgba(16,19,24,.72);
+      margin:0 0 22px;
+      color:rgba(16,22,20,.70);
       font-size:15.5px;
       line-height:1.75;
       max-width:62ch;
-      margin:0 0 22px;
     }
     .btn-dark{
-      display:inline-flex;align-items:center;justify-content:center;
+      display:inline-flex; align-items:center; justify-content:center;
       padding:12px 16px;
       border-radius:12px;
-      border:1px solid rgba(16,19,24,.18);
-      background:#111722;
+      border:1px solid rgba(16,22,20,.18);
+      background:#0a1710;
       color:rgba(255,255,255,.92);
       font-weight:600;
       font-size:14px;
       box-shadow:0 14px 28px rgba(0,0,0,.16);
-      transition:transform .15s ease, background .2s ease;
+      transition:transform .14s ease, background .18s ease;
+      cursor:pointer;
     }
-    .btn-dark:hover{transform:translateY(-1px);background:#0c121a}
+    .btn-dark:hover{ transform:translateY(-1px); background:#07100b; }
 
+    /* Right card (dark green) */
     .card{
-      border-radius:var(--radius);
+      border-radius:var(--r);
       overflow:hidden;
-      border:1px solid rgba(0,0,0,.08);
+      border:1px solid rgba(0,0,0,.10);
       box-shadow:0 18px 40px rgba(0,0,0,.18);
-      background:linear-gradient(180deg, rgba(12,18,26,.98), rgba(10,15,22,.98));
+      background:linear-gradient(180deg, rgba(10,23,16,.98), rgba(7,16,11,.98));
       color:white;
     }
     .card-top{
-      display:flex;align-items:center;gap:10px;
+      display:flex; align-items:center; gap:10px;
       padding:16px 16px 12px;
       border-bottom:1px solid rgba(255,255,255,.08);
     }
     .card-top .mark{
-      width:34px;height:34px;border-radius:999px;
+      width:34px; height:34px; border-radius:999px;
       border:1px solid rgba(201,163,90,.55);
       background:rgba(201,163,90,.08);
-      display:grid;place-items:center;
+      display:grid; place-items:center;
       color:var(--gold);
       font-weight:800;
       letter-spacing:.02em;
@@ -372,9 +396,7 @@
       font-size:13px;
       color:rgba(255,255,255,.86);
     }
-    .card-mid{
-      padding:12px 16px 16px;
-    }
+    .card-mid{ padding:12px 16px 16px; }
     .card-mid img{
       width:100%;
       height:170px;
@@ -393,16 +415,15 @@
       color:rgba(255,255,255,.76);
       font-size:14px;
     }
-    .bullets li{
-      display:flex;gap:10px;align-items:flex-start;
-    }
+    .bullets li{ display:flex; gap:10px; align-items:flex-start; }
+
     .card-cta{
       padding:0 16px 18px;
       display:flex;
     }
     .card-cta .cta-wide{
       width:100%;
-      display:inline-flex;align-items:center;justify-content:center;
+      display:inline-flex; align-items:center; justify-content:center;
       padding:12px 14px;
       border-radius:12px;
       border:1px solid rgba(201,163,90,.60);
@@ -410,15 +431,16 @@
       color:rgba(255,255,255,.92);
       font-weight:600;
       font-size:14px;
-      transition:transform .15s ease, border-color .2s ease;
+      transition:transform .14s ease, border-color .18s ease;
+      cursor:pointer;
     }
-    .card-cta .cta-wide:hover{transform:translateY(-1px);border-color:rgba(201,163,90,.85)}
+    .card-cta .cta-wide:hover{ transform:translateY(-1px); border-color:rgba(201,163,90,.90); }
 
     /* =========================================================
-       STATS STRIP (200+ | 25% | 15+)
+       STATS STRIP
     ========================================================= */
     .stats{
-      background:linear-gradient(180deg, var(--paper-2), var(--paper));
+      background:linear-gradient(180deg, var(--paper-1), var(--paper-0));
       border-top:1px solid rgba(0,0,0,.06);
       border-bottom:1px solid rgba(0,0,0,.06);
       padding:26px 0;
@@ -430,44 +452,42 @@
       align-items:center;
       text-align:center;
     }
-    .stat{
-      padding:6px 10px;
-    }
+    .stat{ padding:6px 10px; position:relative; }
     .stat .num{
       font-size:46px;
       font-weight:700;
-      color:#0c121a;
+      color:#0a1710;
       letter-spacing:-.02em;
       margin:0;
     }
     .stat .lbl{
       margin:6px 0 0;
-      color:rgba(16,19,24,.68);
+      color:rgba(16,22,20,.66);
       font-size:13.5px;
       letter-spacing:.02em;
     }
-    .divider{
-      position:relative;
-    }
-    .divider::after{
+    .stat.divider::after{
       content:"";
       position:absolute;
-      right:-9px;top:18%;
-      width:1px;height:64%;
+      right:-9px; top:18%;
+      width:1px; height:64%;
       background:rgba(0,0,0,.10);
+    }
+    .center-cta{
+      display:flex;
+      justify-content:center;
+      margin-top:18px;
     }
 
     /* =========================================================
-       LOWER SECTIONS (anchor targets)
+       LOWER SECTIONS
     ========================================================= */
-    .section-muted{
-      background:#f6f2ec;
-    }
+    .section-muted{ background:#f6f2ec; }
     .minihead{
       font-size:13px;
       letter-spacing:.18em;
       text-transform:uppercase;
-      color:rgba(16,19,24,.58);
+      color:rgba(16,22,20,.56);
       margin:0 0 10px;
       font-weight:600;
     }
@@ -475,14 +495,14 @@
       margin:0 0 14px;
       font-size:28px;
       letter-spacing:-.02em;
-      color:#101318;
+      color:#101614;
       font-weight:700;
     }
     .prose{
-      color:rgba(16,19,24,.72);
+      color:rgba(16,22,20,.72);
       line-height:1.75;
       font-size:15.5px;
-      max-width:80ch;
+      max-width:82ch;
     }
     .contactbox{
       display:grid;
@@ -501,25 +521,76 @@
       font-size:12px;
       letter-spacing:.16em;
       text-transform:uppercase;
-      color:rgba(16,19,24,.55);
+      color:rgba(16,22,20,.55);
       margin:0 0 8px;
       font-weight:600;
     }
     .contactcard .v{
       margin:0;
       font-size:16px;
-      color:#111722;
-      font-weight:600;
+      color:#0a1710;
+      font-weight:700;
     }
 
+    /* Contact form */
+    .form{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+    }
+    .field{ display:flex; flex-direction:column; gap:6px; }
+    .field label{
+      font-size:12px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      color:rgba(16,22,20,.55);
+      font-weight:600;
+    }
+    input, textarea, select{
+      font: inherit;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid rgba(0,0,0,.12);
+      background:#fff;
+      outline:none;
+      transition:border-color .15s ease, box-shadow .15s ease;
+    }
+    input:focus, textarea:focus, select:focus{
+      border-color: rgba(201,163,90,.55);
+      box-shadow: 0 0 0 4px rgba(201,163,90,.16);
+    }
+    textarea{
+      min-height:120px;
+      resize:vertical;
+      grid-column:1 / -1;
+    }
+    .form-actions{
+      grid-column:1 / -1;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .hint{
+      color:rgba(16,22,20,.62);
+      font-size:13.5px;
+      line-height:1.45;
+      margin:0;
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
     footer{
-      background:#0c121a;
+      background:linear-gradient(180deg, rgba(7,16,11,1), rgba(5,9,7,1));
       color:rgba(255,255,255,.72);
       padding:22px 0;
       border-top:1px solid rgba(255,255,255,.08);
     }
     .foot{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; flex-wrap:wrap;
       font-size:13px;
     }
     .foot a{
@@ -527,25 +598,28 @@
       padding:8px 10px;
       border-radius:10px;
     }
-    .foot a:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.90)}
+    .foot a:hover{
+      background:rgba(255,255,255,.06);
+      color:rgba(255,255,255,.92);
+    }
 
     /* =========================================================
        RESPONSIVE
     ========================================================= */
     @media (max-width: 980px){
-      .hero-grid, .split{grid-template-columns:1fr;gap:22px}
-      .brand{min-width:auto}
-      .navlinks{display:none}
-      .hero h1{font-size:44px}
-      .stat .num{font-size:40px}
+      .hero-grid, .split{ grid-template-columns:1fr; gap:22px; }
+      nav.primary{ display:none; }
+      .brand{ min-width:auto; }
+      h1{ font-size:44px; }
+      .stat .num{ font-size:40px; }
+      .form{ grid-template-columns:1fr; }
     }
     @media (max-width: 560px){
-      .topbar .row{padding:10px 14px}
-      .container{padding:0 14px}
-      .hero h1{font-size:38px}
-      .stats-grid{grid-template-columns:1fr;gap:10px}
-      .divider::after{display:none}
-      .contactbox{grid-template-columns:1fr}
+      .container{ padding:0 14px; }
+      h1{ font-size:38px; }
+      .stats-grid{ grid-template-columns:1fr; gap:10px; }
+      .stat.divider::after{ display:none; }
+      .contactbox{ grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -570,13 +644,13 @@
     <div class="container navwrap">
       <a class="brand" href="#home" aria-label="Pivot Core Group home">
         <span class="brandmark">
-          <!-- If you have a dedicated logo image, swap this src -->
-          <img src="images/hero.jpeg" alt="Pivot Core Group mark" />
+          <!-- Replace with your true logo file -->
+          <img src="images/logo.png" alt="Pivot Core Group logo">
         </span>
         <span class="brandname">Pivot Core Group</span>
       </a>
 
-      <nav class="navlinks" aria-label="Primary navigation">
+      <nav class="primary" aria-label="Primary navigation">
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#services">Services</a>
@@ -584,13 +658,14 @@
         <a href="#contact">Contact</a>
       </nav>
 
-      <a class="cta" href="#contact">Schedule Consultation</a>
+      <!-- Top right CTA -->
+      <a class="cta" href="#contact" data-scroll="#contact">Schedule Consultation</a>
     </div>
   </header>
 
   <!-- HERO -->
   <section id="home" class="hero">
-    <div class="container heroinner">
+    <div class="container inner">
       <div class="hero-grid">
         <div>
           <p class="kicker">Pivot Core Group</p>
@@ -598,25 +673,27 @@
             Turning Insight<br/>
             Into <span class="gold">Impact</span>
           </h1>
+
           <p class="subline">
             Strategic Data &amp; Analytics Consulting<br/>
             for Modern Enterprises
           </p>
 
           <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
-            <a class="btn" href="#contact">Schedule Consultation</a>
-            <a class="btn secondary" href="#services">Explore Services</a>
+            <button class="btn" type="button" data-scroll="#contact">
+              Schedule Consultation
+            </button>
+            <button class="btn secondary" type="button" data-scroll="#services">
+              Explore Services
+            </button>
           </div>
         </div>
 
-        <aside class="hero-panel" aria-label="Highlights panel">
-          <div class="mini-title">
-            <span>Performance Snapshot</span>
-            <span style="color:rgba(255,255,255,.62);font-weight:500;">Quarterly trend</span>
-          </div>
+        <aside class="panel" aria-label="Performance snapshot panel">
+          <p class="title">Performance Snapshot</p>
+          <p class="subtitle">Quarterly trend</p>
 
           <div class="spark" aria-hidden="true">
-            <!-- Simple inline “chart” to mimic the screenshot aesthetic -->
             <svg viewBox="0 0 600 240" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
@@ -624,11 +701,13 @@
                   <stop offset="100%" stop-color="rgba(201,163,90,.06)"/>
                 </linearGradient>
               </defs>
+
               <path d="M0 190 C60 170, 95 176, 140 152 C190 125, 235 150, 280 115 C330 82, 365 110, 420 78 C480 40, 520 66, 600 28"
-                    fill="none" stroke="rgba(201,163,90,.85)" stroke-width="3.5"/>
+                    fill="none" stroke="rgba(201,163,90,.90)" stroke-width="3.5"/>
+
               <path d="M0 240 L0 190 C60 170, 95 176, 140 152 C190 125, 235 150, 280 115 C330 82, 365 110, 420 78 C480 40, 520 66, 600 28 L600 240 Z"
                     fill="url(#g)" />
-              <!-- grid -->
+
               <g opacity=".22" stroke="white" stroke-width="1">
                 <line x1="0" y1="60" x2="600" y2="60"/>
                 <line x1="0" y1="120" x2="600" y2="120"/>
@@ -641,12 +720,18 @@
             </svg>
           </div>
 
-          <ul class="list">
+          <ul class="checklist">
             <li><span class="check">✓</span> Strategy-to-execution delivery</li>
             <li><span class="check">✓</span> KPI frameworks &amp; decision velocity</li>
             <li><span class="check">✓</span> Executive dashboards &amp; reporting</li>
             <li><span class="check">✓</span> Operational optimization programs</li>
           </ul>
+
+          <div class="panel-cta">
+            <button class="btn wide" type="button" data-scroll="#services">
+              Discover Our Services
+            </button>
+          </div>
         </aside>
       </div>
     </div>
@@ -664,7 +749,7 @@
             operational efficiency, and strategic transformation. Our seasoned consultants provide tailored
             strategies that align analytics with business goals, ensuring measurable outcomes.
           </p>
-          <a class="btn-dark" href="#about">Learn More About Us</a>
+          <button class="btn-dark" type="button" data-scroll="#insights">Learn More About Us</button>
         </div>
 
         <div class="card" aria-label="Services preview card">
@@ -674,8 +759,8 @@
           </div>
 
           <div class="card-mid">
-            <!-- Swap this image to any “chart” or “dashboard” image you prefer -->
-            <img src="images/hero.jpeg" alt="Analytics dashboard background preview">
+            <!-- Add this file: images/card-bg.jpg (a dashboard/graph crop) -->
+            <img src="images/card-bg.jpg" alt="Analytics dashboard preview">
             <ul class="bullets">
               <li><span class="check">✓</span> Strategic Data Advisory</li>
               <li><span class="check">✓</span> Analytics Implementation</li>
@@ -685,7 +770,7 @@
           </div>
 
           <div class="card-cta">
-            <a class="cta-wide" href="#services">Discover Our Services</a>
+            <button class="cta-wide" type="button" data-scroll="#services">Discover Our Services</button>
           </div>
         </div>
       </div>
@@ -712,13 +797,13 @@
         </div>
       </div>
 
-      <div style="display:flex;justify-content:center;margin-top:18px;">
-        <a class="btn-dark" href="#services">Discover Our Services</a>
+      <div class="center-cta">
+        <button class="btn-dark" type="button" data-scroll="#services">Discover Our Services</button>
       </div>
     </div>
   </section>
 
-  <!-- SERVICES (anchor target) -->
+  <!-- SERVICES -->
   <section id="services" class="section section-muted">
     <div class="container">
       <p class="minihead">Services</p>
@@ -735,55 +820,103 @@
           <li><strong>Operational Optimization</strong> — process discovery, redesign, and performance systems.</li>
         </ul>
       </div>
+
+      <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="btn" type="button" data-scroll="#contact">Inquire About Services</button>
+        <button class="btn secondary" type="button" data-scroll="#contact" data-prefill="service=Strategic%20Data%20Advisory">Strategic Data Advisory</button>
+        <button class="btn secondary" type="button" data-scroll="#contact" data-prefill="service=Dashboards%20%26%20Reporting">Dashboards &amp; Reporting</button>
+      </div>
     </div>
   </section>
 
-  <!-- INSIGHTS (anchor target) -->
+  <!-- INSIGHTS -->
   <section id="insights" class="section">
     <div class="container">
       <p class="minihead">Insights</p>
       <h3 class="h3">Thought leadership &amp; practical playbooks</h3>
       <div class="prose">
         <p>
-          Publish case studies, frameworks, and implementation guides here. If you want, I can format an
-          “Insights” grid that looks like modern consulting blogs with featured posts.
+          This section can become a grid of articles, case studies, or frameworks. If you want, I’ll convert
+          this into a “featured post + cards” layout while keeping the same visual language.
         </p>
+      </div>
+
+      <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="btn-dark" type="button" data-scroll="#contact" data-prefill="topic=Insights%20Request">Request an Insight / Case Study</button>
       </div>
     </div>
   </section>
 
-  <!-- CONTACT (anchor target) -->
+  <!-- CONTACT -->
   <section id="contact" class="section section-muted">
     <div class="container">
       <p class="minihead">Contact</p>
       <h3 class="h3">Schedule a consultation</h3>
       <div class="prose">
-        <p>
-          Send a note with your goals, timeline, and current state. We’ll respond within 1–2 business days.
+        <p class="hint" id="contactHint">
+          Send a note with your goals, timeline, and current state to receive a response within 1–2 business days.
         </p>
       </div>
 
       <div class="contactbox">
         <div class="contactcard">
           <p class="k">Email</p>
-          <p class="v">contact@pivotcoregroup.com</p>
+          <p class="v"><a href="mailto:contact@pivotcoregroup.com">contact@pivotcoregroup.com</a></p>
         </div>
         <div class="contactcard">
           <p class="k">Phone</p>
-          <p class="v">202-498-3346</p>
+          <p class="v"><a href="tel:2024983346">202-498-3346</a></p>
         </div>
       </div>
 
-      <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;">
-        <a class="btn-dark" href="mailto:contact@pivotcoregroup.com?subject=Pivot%20Core%20Group%20Consultation">Email Us</a>
-        <a class="btn secondary" href="tel:2024983346">Call Now</a>
-      </div>
+      <!-- Contact form (full control, no external dependencies) -->
+      <form class="form" id="inquiryForm">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" required />
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@company.com" required />
+        </div>
+
+        <div class="field">
+          <label for="service">Service</label>
+          <select id="service" name="service">
+            <option value="">Select a service (optional)</option>
+            <option>Strategic Data Advisory</option>
+            <option>Analytics Implementation</option>
+            <option>KPI &amp; Reporting Solutions</option>
+            <option>Operational Optimization</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="timeline">Timeline</label>
+          <select id="timeline" name="timeline">
+            <option value="">Select a timeline (optional)</option>
+            <option>ASAP</option>
+            <option>2–4 weeks</option>
+            <option>1–3 months</option>
+            <option>3+ months</option>
+          </select>
+        </div>
+
+        <textarea id="message" name="message" placeholder="Goals, current state, constraints, and what success looks like..." required></textarea>
+
+        <div class="form-actions">
+          <button class="btn" type="submit">Send Inquiry</button>
+          <button class="btn secondary" type="button" id="copyEmailBtn">Copy Email Template</button>
+          <p class="hint" id="formStatus" aria-live="polite" style="margin:0;"></p>
+        </div>
+      </form>
     </div>
   </section>
 
   <footer>
     <div class="container foot">
-      <div>© 2026 Pivot Core Group</div>
+      <div>© <span id="year"></span> Pivot Core Group</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <a href="#services">Services</a>
         <a href="#about">About</a>
@@ -793,5 +926,113 @@
     </div>
   </footer>
 
+  <script>
+    // =========================================================
+    // Smooth-scroll + optional prefill
+    // =========================================================
+    function smoothScrollTo(selector) {
+      const el = document.querySelector(selector);
+      if (!el) return;
+      const y = el.getBoundingClientRect().top + window.scrollY - 84; // offset for sticky header
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+
+    function applyPrefill(prefillStr) {
+      // format: "service=Strategic%20Data%20Advisory&topic=..."
+      if (!prefillStr) return;
+      const params = new URLSearchParams(prefillStr);
+      const service = params.get("service");
+      const topic = params.get("topic");
+
+      if (service) {
+        const serviceEl = document.getElementById("service");
+        // If option exists, select it; else set a message hint
+        const options = Array.from(serviceEl.options).map(o => o.text);
+        if (options.includes(service)) serviceEl.value = service;
+        else serviceEl.value = "";
+      }
+
+      if (topic) {
+        const msg = document.getElementById("message");
+        msg.value = `Topic: ${topic}\n\n` + (msg.value || "");
+      }
+    }
+
+    document.addEventListener("click", (e) => {
+      const t = e.target.closest("[data-scroll]");
+      if (!t) return;
+
+      e.preventDefault();
+      const sel = t.getAttribute("data-scroll");
+      const prefill = t.getAttribute("data-prefill");
+
+      smoothScrollTo(sel);
+
+      // wait for scroll to finish-ish, then focus & prefill
+      setTimeout(() => {
+        applyPrefill(prefill);
+        const focusEl = document.querySelector("#contact #name") || document.querySelector("#contact input, #contact textarea");
+        if (focusEl) focusEl.focus();
+      }, 450);
+    });
+
+    // =========================================================
+    // Contact form behavior (client-side)
+    // - Submits via mailto for now (simple, no backend)
+    // - Also provides "copy email template"
+    // =========================================================
+    function buildEmailBody(data) {
+      const lines = [
+        `Name: ${data.name || ""}`,
+        `Email: ${data.email || ""}`,
+        `Service: ${data.service || ""}`,
+        `Timeline: ${data.timeline || ""}`,
+        "",
+        "Message:",
+        data.message || ""
+      ];
+      return lines.join("\n");
+    }
+
+    const form = document.getElementById("inquiryForm");
+    const statusEl = document.getElementById("formStatus");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      statusEl.textContent = "";
+
+      const data = Object.fromEntries(new FormData(form).entries());
+      const subject = encodeURIComponent("Pivot Core Group — Consultation Inquiry");
+      const body = encodeURIComponent(buildEmailBody(data));
+
+      // mailto route (no backend required)
+      const mailto = `mailto:contact@pivotcoregroup.com?subject=${subject}&body=${body}`;
+
+      // open user’s email client
+      window.location.href = mailto;
+
+      statusEl.textContent = "Opening your email client…";
+    });
+
+    document.getElementById("copyEmailBtn").addEventListener("click", async () => {
+      const data = Object.fromEntries(new FormData(form).entries());
+      const template = `To: contact@pivotcoregroup.com
+Subject: Pivot Core Group — Consultation Inquiry
+
+${buildEmailBody(data)}`;
+
+      try {
+        await navigator.clipboard.writeText(template);
+        statusEl.textContent = "Copied email template to clipboard.";
+      } catch (err) {
+        // fallback: select text in a prompt
+        window.prompt("Copy this email template:", template);
+        statusEl.textContent = "Clipboard not available—template shown for manual copy.";
+      }
+    });
+
+    // year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
