@@ -1,175 +1,797 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="stylish.css">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Pivot Core Group</title>
+
+  <style>
+    /* =========================================================
+       FONT: Avenir Next LT Pro (self-hosted)
+       Put files in: /fonts/
+       - AvenirNextLTPro-Regular.woff2
+       - AvenirNextLTPro-Demi.woff2
+       - AvenirNextLTPro-Bold.woff2
+       If you use different filenames, update the src URLs below.
+    ========================================================= */
+    @font-face{
+      font-family:"Avenir Next LT Pro";
+      src:url("fonts/AvenirNextLTPro-Regular.woff2") format("woff2");
+      font-weight:400;
+      font-style:normal;
+      font-display:swap;
+    }
+    @font-face{
+      font-family:"Avenir Next LT Pro";
+      src:url("fonts/AvenirNextLTPro-Demi.woff2") format("woff2");
+      font-weight:600;
+      font-style:normal;
+      font-display:swap;
+    }
+    @font-face{
+      font-family:"Avenir Next LT Pro";
+      src:url("fonts/AvenirNextLTPro-Bold.woff2") format("woff2");
+      font-weight:700;
+      font-style:normal;
+      font-display:swap;
+    }
+
+    :root{
+      --bg:#0b0f14;
+      --ink:#0b0f14;
+      --paper:#f3efe8;
+      --paper-2:#efe9e0;
+      --nav:#0c121a;
+      --nav-2:#0a0f16;
+      --gold:#c9a35a;
+      --gold-2:#b8924a;
+      --muted:rgba(255,255,255,.72);
+      --muted2:rgba(255,255,255,.60);
+      --stroke:rgba(201,163,90,.42);
+      --shadow:0 18px 40px rgba(0,0,0,.35);
+      --radius:16px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Avenir Next LT Pro","Avenir Next",Avenir,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:#101318;
+      background:var(--paper);
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max);margin:0 auto;padding:0 22px}
+
+    /* =========================================================
+       TOP UTILITY BAR (email + phone)
+    ========================================================= */
+    .topbar{
+      background:linear-gradient(180deg, rgba(12,18,26,.98), rgba(10,15,22,.98));
+      color:rgba(255,255,255,.85);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      font-size:12.5px;
+      letter-spacing:.2px;
+    }
+    .topbar .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:10px 22px;
+      gap:14px;
+    }
+    .topbar .left, .topbar .right{
+      display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+    }
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:6px 10px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+    }
+    .dot{
+      width:8px;height:8px;border-radius:50%;
+      background:var(--gold);
+      box-shadow:0 0 0 3px rgba(201,163,90,.16);
+    }
+
+    /* =========================================================
+       MAIN NAV
+    ========================================================= */
+    header{
+      position:sticky;top:0;z-index:40;
+      background:linear-gradient(180deg, rgba(12,18,26,.98), rgba(10,15,22,.98));
+      border-bottom:1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(10px);
+    }
+    .navwrap{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;min-width:240px;
+    }
+    .brandmark{
+      width:44px;height:44px;border-radius:999px;
+      border:1px solid rgba(201,163,90,.55);
+      display:grid;place-items:center;
+      background:radial-gradient(circle at 30% 30%, rgba(201,163,90,.22), rgba(201,163,90,.04));
+      overflow:hidden;
+    }
+    /* If you have a real logo image, set it here */
+    .brandmark img{
+      width:100%;height:100%;object-fit:cover;display:block;
+      filter:saturate(1.05) contrast(1.05);
+    }
+    .brandname{
+      font-weight:700;
+      letter-spacing:.8px;
+      color:rgba(255,255,255,.92);
+      text-transform:uppercase;
+      font-size:17px;
+      line-height:1.05;
+    }
+    .navlinks{
+      display:flex;align-items:center;gap:18px;
+      color:rgba(255,255,255,.80);
+      font-size:14px;
+    }
+    .navlinks a{
+      padding:10px 8px;
+      border-radius:10px;
+      transition:background .2s ease, color .2s ease;
+    }
+    .navlinks a:hover{
+      background:rgba(255,255,255,.06);
+      color:rgba(255,255,255,.92);
+    }
+    .cta{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:11px 14px;
+      border-radius:10px;
+      border:1px solid rgba(201,163,90,.60);
+      color:rgba(255,255,255,.92);
+      background:linear-gradient(180deg, rgba(201,163,90,.16), rgba(201,163,90,.05));
+      box-shadow: 0 10px 28px rgba(0,0,0,.25);
+      font-weight:600;
+      font-size:13px;
+      white-space:nowrap;
+      transition:transform .15s ease, background .2s ease, border-color .2s ease;
+    }
+    .cta:hover{transform:translateY(-1px);border-color:rgba(201,163,90,.80)}
+
+    /* =========================================================
+       HERO (mirrors screenshot: dark chart background + gold accents)
+    ========================================================= */
+    .hero{
+      position:relative;
+      background:var(--bg);
+      color:white;
+      overflow:hidden;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .hero::before{
+      content:"";
+      position:absolute;inset:0;
+      background:
+        radial-gradient(900px 420px at 18% 35%, rgba(201,163,90,.18), transparent 60%),
+        radial-gradient(700px 340px at 78% 55%, rgba(201,163,90,.10), transparent 65%),
+        linear-gradient(180deg, rgba(10,15,22,.80), rgba(10,15,22,.96));
+      z-index:1;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;inset:0;
+      /* Use your existing hero image for the chart background */
+      background-image:url("images/hero.jpeg");
+      background-size:cover;
+      background-position:center;
+      opacity:.38;
+      z-index:0;
+      filter:contrast(1.05) saturate(1.05);
+    }
+    .heroinner{
+      position:relative;z-index:2;
+      padding:72px 0 56px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:40px;
+      align-items:center;
+    }
+    .kicker{
+      color:rgba(255,255,255,.72);
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      font-size:12px;
+      margin:0 0 14px;
+    }
+    .hero h1{
+      margin:0 0 14px;
+      font-size:56px;
+      line-height:1.02;
+      letter-spacing:-.02em;
+      font-weight:700;
+    }
+    .hero h1 .gold{color:var(--gold)}
+    .subline{
+      margin:0 0 26px;
+      font-size:17px;
+      line-height:1.55;
+      color:rgba(255,255,255,.74);
+      max-width:54ch;
+    }
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:13px 18px;
+      border-radius:12px;
+      border:1px solid rgba(201,163,90,.70);
+      background:linear-gradient(180deg, rgba(201,163,90,.22), rgba(201,163,90,.08));
+      color:rgba(255,255,255,.92);
+      font-weight:600;
+      font-size:14px;
+      box-shadow:0 18px 40px rgba(0,0,0,.35);
+      transition:transform .15s ease, border-color .2s ease;
+    }
+    .btn:hover{transform:translateY(-1px);border-color:rgba(201,163,90,.90)}
+    .btn.secondary{
+      background:transparent;
+      border:1px solid rgba(255,255,255,.18);
+      color:rgba(255,255,255,.86);
+      box-shadow:none;
+    }
+
+    /* Right side subtle “graph panel” (keeps the screenshot feel without needing a second image) */
+    .hero-panel{
+      border-radius:var(--radius);
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      padding:18px 18px 14px;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .hero-panel .mini-title{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:12px;
+      margin:0 0 10px;
+      color:rgba(255,255,255,.86);
+      font-weight:600;
+      font-size:13px;
+      letter-spacing:.02em;
+    }
+    .spark{
+      height:160px;border-radius:12px;
+      border:1px solid rgba(201,163,90,.30);
+      background:
+        radial-gradient(120px 80px at 70% 65%, rgba(201,163,90,.16), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.45));
+      position:relative;
+      overflow:hidden;
+    }
+    .spark svg{position:absolute;inset:0;width:100%;height:100%;opacity:.9}
+    .hero-panel .list{
+      margin:12px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:8px;
+      color:rgba(255,255,255,.72);
+      font-size:13px;
+    }
+    .hero-panel .list li{
+      display:flex;gap:10px;align-items:flex-start;
+    }
+    .check{
+      width:18px;height:18px;border-radius:999px;
+      border:1px solid rgba(201,163,90,.55);
+      display:grid;place-items:center;
+      color:var(--gold);
+      margin-top:1px;
+      background:rgba(201,163,90,.08);
+      flex:0 0 auto;
+      font-weight:700;
+    }
+
+    /* =========================================================
+       SECTION 2: “Transforming Data into Business Momentum”
+       (light paper background + right-side card)
+    ========================================================= */
+    .section{
+      padding:56px 0;
+      background:var(--paper);
+    }
+    .split{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:40px;
+      align-items:center;
+    }
+    .h2{
+      margin:0 0 14px;
+      font-size:38px;
+      line-height:1.10;
+      letter-spacing:-.02em;
+      color:#101318;
+      font-weight:700;
+    }
+    .rule{
+      width:88px;height:2px;background:rgba(16,19,24,.16);
+      margin:16px 0 18px;
+    }
+    .body{
+      color:rgba(16,19,24,.72);
+      font-size:15.5px;
+      line-height:1.75;
+      max-width:62ch;
+      margin:0 0 22px;
+    }
+    .btn-dark{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:12px 16px;
+      border-radius:12px;
+      border:1px solid rgba(16,19,24,.18);
+      background:#111722;
+      color:rgba(255,255,255,.92);
+      font-weight:600;
+      font-size:14px;
+      box-shadow:0 14px 28px rgba(0,0,0,.16);
+      transition:transform .15s ease, background .2s ease;
+    }
+    .btn-dark:hover{transform:translateY(-1px);background:#0c121a}
+
+    .card{
+      border-radius:var(--radius);
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,.08);
+      box-shadow:0 18px 40px rgba(0,0,0,.18);
+      background:linear-gradient(180deg, rgba(12,18,26,.98), rgba(10,15,22,.98));
+      color:white;
+    }
+    .card-top{
+      display:flex;align-items:center;gap:10px;
+      padding:16px 16px 12px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .card-top .mark{
+      width:34px;height:34px;border-radius:999px;
+      border:1px solid rgba(201,163,90,.55);
+      background:rgba(201,163,90,.08);
+      display:grid;place-items:center;
+      color:var(--gold);
+      font-weight:800;
+      letter-spacing:.02em;
+    }
+    .card-top .title{
+      font-weight:700;
+      letter-spacing:.7px;
+      text-transform:uppercase;
+      font-size:13px;
+      color:rgba(255,255,255,.86);
+    }
+    .card-mid{
+      padding:12px 16px 16px;
+    }
+    .card-mid img{
+      width:100%;
+      height:170px;
+      object-fit:cover;
+      border-radius:12px;
+      border:1px solid rgba(201,163,90,.24);
+      opacity:.92;
+      display:block;
+    }
+    .bullets{
+      margin:14px 0 0;
+      padding:0;
+      list-style:none;
+      display:grid;
+      gap:10px;
+      color:rgba(255,255,255,.76);
+      font-size:14px;
+    }
+    .bullets li{
+      display:flex;gap:10px;align-items:flex-start;
+    }
+    .card-cta{
+      padding:0 16px 18px;
+      display:flex;
+    }
+    .card-cta .cta-wide{
+      width:100%;
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid rgba(201,163,90,.60);
+      background:linear-gradient(180deg, rgba(201,163,90,.20), rgba(201,163,90,.06));
+      color:rgba(255,255,255,.92);
+      font-weight:600;
+      font-size:14px;
+      transition:transform .15s ease, border-color .2s ease;
+    }
+    .card-cta .cta-wide:hover{transform:translateY(-1px);border-color:rgba(201,163,90,.85)}
+
+    /* =========================================================
+       STATS STRIP (200+ | 25% | 15+)
+    ========================================================= */
+    .stats{
+      background:linear-gradient(180deg, var(--paper-2), var(--paper));
+      border-top:1px solid rgba(0,0,0,.06);
+      border-bottom:1px solid rgba(0,0,0,.06);
+      padding:26px 0;
+    }
+    .stats-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:18px;
+      align-items:center;
+      text-align:center;
+    }
+    .stat{
+      padding:6px 10px;
+    }
+    .stat .num{
+      font-size:46px;
+      font-weight:700;
+      color:#0c121a;
+      letter-spacing:-.02em;
+      margin:0;
+    }
+    .stat .lbl{
+      margin:6px 0 0;
+      color:rgba(16,19,24,.68);
+      font-size:13.5px;
+      letter-spacing:.02em;
+    }
+    .divider{
+      position:relative;
+    }
+    .divider::after{
+      content:"";
+      position:absolute;
+      right:-9px;top:18%;
+      width:1px;height:64%;
+      background:rgba(0,0,0,.10);
+    }
+
+    /* =========================================================
+       LOWER SECTIONS (anchor targets)
+    ========================================================= */
+    .section-muted{
+      background:#f6f2ec;
+    }
+    .minihead{
+      font-size:13px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(16,19,24,.58);
+      margin:0 0 10px;
+      font-weight:600;
+    }
+    .h3{
+      margin:0 0 14px;
+      font-size:28px;
+      letter-spacing:-.02em;
+      color:#101318;
+      font-weight:700;
+    }
+    .prose{
+      color:rgba(16,19,24,.72);
+      line-height:1.75;
+      font-size:15.5px;
+      max-width:80ch;
+    }
+    .contactbox{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:18px;
+      margin-top:18px;
+    }
+    .contactcard{
+      border:1px solid rgba(0,0,0,.08);
+      border-radius:16px;
+      padding:18px;
+      background:white;
+      box-shadow:0 14px 30px rgba(0,0,0,.08);
+    }
+    .contactcard .k{
+      font-size:12px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:rgba(16,19,24,.55);
+      margin:0 0 8px;
+      font-weight:600;
+    }
+    .contactcard .v{
+      margin:0;
+      font-size:16px;
+      color:#111722;
+      font-weight:600;
+    }
+
+    footer{
+      background:#0c121a;
+      color:rgba(255,255,255,.72);
+      padding:22px 0;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
+    .foot{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      font-size:13px;
+    }
+    .foot a{
+      color:rgba(255,255,255,.74);
+      padding:8px 10px;
+      border-radius:10px;
+    }
+    .foot a:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.90)}
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+    @media (max-width: 980px){
+      .hero-grid, .split{grid-template-columns:1fr;gap:22px}
+      .brand{min-width:auto}
+      .navlinks{display:none}
+      .hero h1{font-size:44px}
+      .stat .num{font-size:40px}
+    }
+    @media (max-width: 560px){
+      .topbar .row{padding:10px 14px}
+      .container{padding:0 14px}
+      .hero h1{font-size:38px}
+      .stats-grid{grid-template-columns:1fr;gap:10px}
+      .divider::after{display:none}
+      .contactbox{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 
 <body>
 
-  <header class="site-header">
-    <div class="container header-row">
-      <div class="brand">
-		  <img class="brand-logo" src="images/hero.jpeg" alt="Pivot Core Group logo">
-		  <div class="brand-text">
- 		   <div class="brand-name">Pivot Core Group</div>
-  			  <div class="brand-tagline">Where strategy becomes execution</div>
-  		</div>
-	</div>
-
-      <nav class="nav">
-        <a href="#services">Services</a>
-        <a href="#mission">Mission</a>
-        <a href="#contact" class="btn btn-small">Contact</a>
-      </nav>
+  <!-- TOP CONTACT STRIP -->
+  <div class="topbar">
+    <div class="container row">
+      <div class="left">
+        <span class="pill"><span class="dot"></span> contact@pivotcoregroup.com</span>
+      </div>
+      <div class="right">
+        <span class="pill">202-498-3346</span>
+        <span class="pill">202-498-3646</span>
+      </div>
     </div>
-	
+  </div>
+
+  <!-- MAIN NAV -->
+  <header>
+    <div class="container navwrap">
+      <a class="brand" href="#home" aria-label="Pivot Core Group home">
+        <span class="brandmark">
+          <!-- If you have a dedicated logo image, swap this src -->
+          <img src="images/hero.jpeg" alt="Pivot Core Group mark" />
+        </span>
+        <span class="brandname">Pivot Core Group</span>
+      </a>
+
+      <nav class="navlinks" aria-label="Primary navigation">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#insights">Insights</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a class="cta" href="#contact">Schedule Consultation</a>
+    </div>
   </header>
 
-  <main>
-	<div class="hero-backdrop">
-  <div class="hero-backdrop-image"></div>
-	</div>
-
-    <section class="hero">
-      <div class="container hero-grid">
-
-        <div class="hero-copy">
-          <h1>Analytics-driven strategy. Execution-ready delivery.</h1>
-          <p class="lead">
-            Pivot Core Group helps teams turn data into decisions—then decisions into measurable outcomes.
-            We deliver consulting engagements that are structured, fast-moving, and built for operational impact.
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="container heroinner">
+      <div class="hero-grid">
+        <div>
+          <p class="kicker">Pivot Core Group</p>
+          <h1>
+            Turning Insight<br/>
+            Into <span class="gold">Impact</span>
+          </h1>
+          <p class="subline">
+            Strategic Data &amp; Analytics Consulting<br/>
+            for Modern Enterprises
           </p>
+
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
+            <a class="btn" href="#contact">Schedule Consultation</a>
+            <a class="btn secondary" href="#services">Explore Services</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="Highlights panel">
+          <div class="mini-title">
+            <span>Performance Snapshot</span>
+            <span style="color:rgba(255,255,255,.62);font-weight:500;">Quarterly trend</span>
+          </div>
+
+          <div class="spark" aria-hidden="true">
+            <!-- Simple inline “chart” to mimic the screenshot aesthetic -->
+            <svg viewBox="0 0 600 240" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="rgba(201,163,90,.55)"/>
+                  <stop offset="100%" stop-color="rgba(201,163,90,.06)"/>
+                </linearGradient>
+              </defs>
+              <path d="M0 190 C60 170, 95 176, 140 152 C190 125, 235 150, 280 115 C330 82, 365 110, 420 78 C480 40, 520 66, 600 28"
+                    fill="none" stroke="rgba(201,163,90,.85)" stroke-width="3.5"/>
+              <path d="M0 240 L0 190 C60 170, 95 176, 140 152 C190 125, 235 150, 280 115 C330 82, 365 110, 420 78 C480 40, 520 66, 600 28 L600 240 Z"
+                    fill="url(#g)" />
+              <!-- grid -->
+              <g opacity=".22" stroke="white" stroke-width="1">
+                <line x1="0" y1="60" x2="600" y2="60"/>
+                <line x1="0" y1="120" x2="600" y2="120"/>
+                <line x1="0" y1="180" x2="600" y2="180"/>
+                <line x1="120" y1="0" x2="120" y2="240"/>
+                <line x1="240" y1="0" x2="240" y2="240"/>
+                <line x1="360" y1="0" x2="360" y2="240"/>
+                <line x1="480" y1="0" x2="480" y2="240"/>
+              </g>
+            </svg>
+          </div>
+
+          <ul class="list">
+            <li><span class="check">✓</span> Strategy-to-execution delivery</li>
+            <li><span class="check">✓</span> KPI frameworks &amp; decision velocity</li>
+            <li><span class="check">✓</span> Executive dashboards &amp; reporting</li>
+            <li><span class="check">✓</span> Operational optimization programs</li>
+          </ul>
+        </aside>
       </div>
-		
-    </section>
-
-   <section id="services" class="section">
-  <div class="container">
-    <h2>Services</h2>
-
-    <div class="carousel" aria-label="Services carousel">
-      <article class="carousel-item">
-        <div class="carousel-media">
-          <img src="images/analytics.jpeg" alt="Analytics dashboard and KPI review">
-        </div>
-        <h3>Business analytics</h3>
-        <p>KPI frameworks, metric definitions, and analytics roadmaps to improve decision velocity.</p>
-      </article>
-
-      <article class="carousel-item">
-        <div class="carousel-media">
-          <img src="images/dashboards.jpg" alt="Executive dashboard reporting">
-        </div>
-        <h3>Dashboards &amp; reporting</h3>
-        <p>Executive-ready dashboards and reporting systems that make performance visible and actionable.</p>
-      </article>
-
-		<article class="carousel-item">
-			<div class="carousel-media">
-			<img src="images/thinking.jpeg" alt="Strategic Thinking">
-			</div>
-			<h3>Strategic Thinking</h3>
-			<p>Teaches teams the perspective focusing tools needed to align upon the business mission.</p>
-		</article>
-
-      <article class="carousel-item">
-        <div class="carousel-media">
-          <img src="images/operations.jpg" alt="Workflow optimization and process mapping">
-        </div>
-        <h3>Operational optimization</h3>
-        <p>Process discovery and workflow redesign to reduce cycle time and improve consistency.</p>
-      </article>
-
-		<article class="carousel-item">
-		<div class="carousel-media">
-			<img src="images/engineering.jpg" alt="Engineering to data to reflect accuracy">
-			</div>
-			<h3>Data Engineering</h3>
-			<p>Test and triangulant the relavent metrics to ensure analysis accurately reflect output</p>
-		</article>
     </div>
+  </section>
 
-  </div>
-</section>
-
-    <section id="mission" class="section section-muted">
-      <div class="container">
-        <h2>Mission</h2>
-        <div class="prose">
-          <p>
-            Pivot Core Group exists to help organizations translate strategy into execution using analytics,
-            operational discipline, and clear deliverables.
+  <!-- SECTION: TRANSFORMING DATA -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="split">
+        <div>
+          <h2 class="h2">Transforming Data<br/>into Business Momentum</h2>
+          <div class="rule"></div>
+          <p class="body">
+            Pivot Core Group empowers organizations to leverage data for smarter decision-making,
+            operational efficiency, and strategic transformation. Our seasoned consultants provide tailored
+            strategies that align analytics with business goals, ensuring measurable outcomes.
           </p>
-          <p>
-            We believe leaders deserve reporting that reflects reality, teams deserve workflows that reduce friction,
-            and customers deserve outcomes that improve with every iteration.
-          </p>
-          <p>
-            Our work is structured, transparent, and measurable—so stakeholders can see progress, validate impact,
-            and scale what works.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section">
-      <div class="container">
-        <h2>Contact</h2>
-
-        <div class="contact-card">
-          <div>
-            <div class="contact-label">Email</div>
-            <div class="contact-value">PivotCoreGroup@gmail.com</div>
-          </div>
-
-          <div>
-            <div class="contact-label">Response time</div>
-            <div class="contact-value">1–2 business days</div>
-          </div>
-
-          <div class="contact-cta">
-            <a class="btn" href="mailto:PivotCoreGroup@gmail.com?subject=Pivot%20Core%20Group%20Inquiry">
-              Email Pivot Core Group
-            </a>
-          </div>
+          <a class="btn-dark" href="#about">Learn More About Us</a>
         </div>
 
+        <div class="card" aria-label="Services preview card">
+          <div class="card-top">
+            <div class="mark">P</div>
+            <div class="title">Pivot Core Group</div>
+          </div>
+
+          <div class="card-mid">
+            <!-- Swap this image to any “chart” or “dashboard” image you prefer -->
+            <img src="images/hero.jpeg" alt="Analytics dashboard background preview">
+            <ul class="bullets">
+              <li><span class="check">✓</span> Strategic Data Advisory</li>
+              <li><span class="check">✓</span> Analytics Implementation</li>
+              <li><span class="check">✓</span> KPI &amp; Reporting Solutions</li>
+              <li><span class="check">✓</span> Operational Optimization</li>
+            </ul>
+          </div>
+
+          <div class="card-cta">
+            <a class="cta-wide" href="#services">Discover Our Services</a>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-  </main>
+  <!-- STATS STRIP -->
+  <section class="stats" aria-label="Key metrics">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat divider">
+          <p class="num">200+</p>
+          <p class="lbl">Successful Engagements</p>
+        </div>
 
-  <footer class="site-footer">
-    <div class="container footer-row">
+        <div class="stat divider">
+          <p class="num">25%</p>
+          <p class="lbl">Avg. Efficiency Improvement</p>
+        </div>
+
+        <div class="stat">
+          <p class="num">15+</p>
+          <p class="lbl">Years of Enterprise Expertise</p>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:center;margin-top:18px;">
+        <a class="btn-dark" href="#services">Discover Our Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES (anchor target) -->
+  <section id="services" class="section section-muted">
+    <div class="container">
+      <p class="minihead">Services</p>
+      <h3 class="h3">What we deliver</h3>
+      <div class="prose">
+        <p>
+          We focus on high-leverage analytics and operating-model improvements that move the needle quickly.
+          Engagements are structured, measurable, and built to scale.
+        </p>
+        <ul>
+          <li><strong>Strategic Data Advisory</strong> — analytics roadmaps, KPI systems, operating cadence.</li>
+          <li><strong>Dashboards &amp; Reporting</strong> — executive-ready visibility and actionable reporting.</li>
+          <li><strong>Analytics Implementation</strong> — instrumentation, modeling, and decision enablement.</li>
+          <li><strong>Operational Optimization</strong> — process discovery, redesign, and performance systems.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS (anchor target) -->
+  <section id="insights" class="section">
+    <div class="container">
+      <p class="minihead">Insights</p>
+      <h3 class="h3">Thought leadership &amp; practical playbooks</h3>
+      <div class="prose">
+        <p>
+          Publish case studies, frameworks, and implementation guides here. If you want, I can format an
+          “Insights” grid that looks like modern consulting blogs with featured posts.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT (anchor target) -->
+  <section id="contact" class="section section-muted">
+    <div class="container">
+      <p class="minihead">Contact</p>
+      <h3 class="h3">Schedule a consultation</h3>
+      <div class="prose">
+        <p>
+          Send a note with your goals, timeline, and current state. We’ll respond within 1–2 business days.
+        </p>
+      </div>
+
+      <div class="contactbox">
+        <div class="contactcard">
+          <p class="k">Email</p>
+          <p class="v">contact@pivotcoregroup.com</p>
+        </div>
+        <div class="contactcard">
+          <p class="k">Phone</p>
+          <p class="v">202-498-3346</p>
+        </div>
+      </div>
+
+      <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;">
+        <a class="btn-dark" href="mailto:contact@pivotcoregroup.com?subject=Pivot%20Core%20Group%20Consultation">Email Us</a>
+        <a class="btn secondary" href="tel:2024983346">Call Now</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container foot">
       <div>© 2026 Pivot Core Group</div>
-      <div class="footer-links">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
         <a href="#services">Services</a>
-        <a href="#mission">Mission</a>
+        <a href="#about">About</a>
+        <a href="#insights">Insights</a>
         <a href="#contact">Contact</a>
       </div>
     </div>
   </footer>
-<script src="carousel.js"></script>
 
-<script>
-  (function () {
-    const header = document.querySelector('.site-header');
-    if (!header) return;
-
-    // When scrolled beyond this many pixels, shrink to "current" size
-    const SHRINK_AT = 60;
-
-    const onScroll = () => {
-      header.classList.toggle('is-shrunk', window.scrollY > SHRINK_AT);
-    };
-
-    // Run once on load (covers refresh mid-page), then on scroll
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-  })();
-</script>
 </body>
 </html>
