@@ -97,19 +97,26 @@
     .brandmark{
   width:44px;
   height:44px;
-  border-radius:999px;
-  overflow:hidden;          /* crops square into a circle */
-  background:transparent;
-  border:none;
-  box-shadow: 0 8px 16px rgba(0,0,0,.35);
+  display:grid;
+  place-items:center;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  padding: 0 !important;
+  box-shadow: none !important;
 }
 
 .brandmark img{
-  width:100%;
-  height:100%;
-  object-fit:cover;         /* fills the circle */
+  width:44px;
+  height:44px;
   display:block;
-}ter: drop-shadow(0 8px 16px rgba(0,0,0,.35));
+  object-fit: contain;
+  background: transparent !important;
+  border: none !important;
+
+  /* makes it pop without creating a “circle” */
+  filter: drop-shadow(0 8px 16px rgba(0,0,0,.35));
 }
     .brandname{
       font-weight:700;
