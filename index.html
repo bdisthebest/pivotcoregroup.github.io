@@ -240,6 +240,18 @@
 
   position: relative;
 }
+.chart-shell--img{
+  height: 220px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(201,163,90,.26);
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.48)),
+    url("images/hero-bg.jpg");
+  background-size: cover;
+  background-position: 72% 46%; /* tune this to align the line nicely */
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+}
 
 /* subtle panel texture + glow */
 .panel--hero::before{
@@ -711,136 +723,8 @@
     <div class="panel-title">Performance Snapshot</div>
     <div class="panel-subtitle">Quarterly trend</div>
   </div>
-
-  <div class="chart-shell" aria-hidden="true">
-    <!-- This SVG is “designed”: grid + bars + glow line + grain -->
-    <svg class="chart" viewBox="0 0 840 290" preserveAspectRatio="none">
-      <defs>
-        <!-- rounded clip for chart area -->
-        <clipPath id="clipPlot">
-          <rect x="18" y="14" width="804" height="190" rx="16" ry="16"></rect>
-        </clipPath>
-
-        <!-- gold area -->
-        <linearGradient id="goldFill" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="rgba(201,163,90,.42)"/>
-          <stop offset="55%" stop-color="rgba(201,163,90,.16)"/>
-          <stop offset="100%" stop-color="rgba(201,163,90,0)"/>
-        </linearGradient>
-
-        <!-- gold line -->
-        <linearGradient id="goldLine" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="rgba(201,163,90,.65)"/>
-          <stop offset="55%" stop-color="rgba(201,163,90,.95)"/>
-          <stop offset="100%" stop-color="rgba(201,163,90,.80)"/>
-        </linearGradient>
-
-        <!-- glow -->
-        <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
-          <feGaussianBlur stdDeviation="4" result="b"/>
-          <feColorMatrix in="b" type="matrix"
-            values="1 0 0 0 0
-                    0 1 0 0 0
-                    0 0 1 0 0
-                    0 0 0 .85 0" result="bb"/>
-          <feMerge>
-            <feMergeNode in="bb"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-
-        <!-- grain/noise overlay -->
-        <filter id="grain">
-          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
-          <feColorMatrix type="matrix"
-            values="0 0 0 0 0
-                    0 0 0 0 0
-                    0 0 0 0 0
-                    0 0 0 .14 0"/>
-        </filter>
-
-        <!-- vignette -->
-        <linearGradient id="vign" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="rgba(0,0,0,.10)"/>
-          <stop offset="100%" stop-color="rgba(0,0,0,.42)"/>
-        </linearGradient>
-      </defs>
-
-      <!-- plot frame -->
-      <rect x="18" y="14" width="804" height="190" rx="16" ry="16"
-            fill="rgba(0,0,0,.22)"
-            stroke="rgba(201,163,90,.28)"
-            stroke-width="2"/>
-
-      <!-- grid (clipped) -->
-      <g clip-path="url(#clipPlot)" opacity=".33" stroke="rgba(255,255,255,.22)" stroke-width="1">
-        <!-- horizontals -->
-        <line x1="18" y1="52"  x2="822" y2="52"/>
-        <line x1="18" y1="90"  x2="822" y2="90"/>
-        <line x1="18" y1="128" x2="822" y2="128"/>
-        <line x1="18" y1="166" x2="822" y2="166"/>
-        <!-- verticals -->
-        <line x1="150" y1="14" x2="150" y2="204"/>
-        <line x1="282" y1="14" x2="282" y2="204"/>
-        <line x1="414" y1="14" x2="414" y2="204"/>
-        <line x1="546" y1="14" x2="546" y2="204"/>
-        <line x1="678" y1="14" x2="678" y2="204"/>
-      </g>
-
-      <!-- bars (clipped) -->
-      <g clip-path="url(#clipPlot)" opacity=".55">
-        <!-- subtle greenish bars like your reference -->
-        <g fill="rgba(118, 158, 120, .20)">
-          <rect x="60"  y="150" width="34" height="54" rx="5"/>
-          <rect x="120" y="140" width="34" height="64" rx="5"/>
-          <rect x="180" y="132" width="34" height="72" rx="5"/>
-          <rect x="240" y="126" width="34" height="78" rx="5"/>
-          <rect x="300" y="114" width="34" height="90" rx="5"/>
-          <rect x="360" y="102" width="34" height="102" rx="5"/>
-          <rect x="420" y="96"  width="34" height="108" rx="5"/>
-          <rect x="480" y="86"  width="34" height="118" rx="5"/>
-          <rect x="540" y="72"  width="34" height="132" rx="5"/>
-          <rect x="600" y="62"  width="34" height="142" rx="5"/>
-          <rect x="660" y="54"  width="34" height="150" rx="5"/>
-          <rect x="720" y="40"  width="34" height="164" rx="5"/>
-        </g>
-      </g>
-
-      <!-- area + line (clipped) -->
-      <g clip-path="url(#clipPlot)">
-        <path d="
-          M 18 170
-          C 90 160, 130 156, 168 148
-          C 220 136, 256 144, 300 128
-          C 350 110, 392 118, 432 98
-          C 486 72, 524 86, 564 66
-          C 620 40, 662 52, 700 38
-          C 756 20, 792 22, 822 14
-          L 822 204
-          L 18 204 Z"
-          fill="url(#goldFill)"/>
-
-        <path d="
-          M 18 170
-          C 90 160, 130 156, 168 148
-          C 220 136, 256 144, 300 128
-          C 350 110, 392 118, 432 98
-          C 486 72, 524 86, 564 66
-          C 620 40, 662 52, 700 38
-          C 756 20, 792 22, 822 14"
-          fill="none"
-          stroke="url(#goldLine)"
-          stroke-width="5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          filter="url(#glow)"/>
-      </g>
-
-      <!-- vignette + grain -->
-      <rect x="18" y="14" width="804" height="190" rx="16" ry="16" fill="url(#vign)" opacity=".45"/>
-      <rect x="18" y="14" width="804" height="190" rx="16" ry="16" filter="url(#grain)" opacity=".65"/>
-    </svg>
-  </div>
+<div class="chart-shell chart-shell--img" aria-hidden="true"></div>
+          
 
   <ul class="panel-list">
     <li><span class="tick"></span><span>Strategy-to-execution delivery</span></li>
