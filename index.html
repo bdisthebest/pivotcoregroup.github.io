@@ -85,13 +85,16 @@
       border-bottom:1px solid rgba(255,255,255,.10);
       backdrop-filter: blur(10px);
     }
-    .navwrap{
-  display:flex;
+    ..navwrap{
+  display:grid;
+  grid-template-columns: 1fr auto 1fr; /* brand | centered nav | right CTA */
   align-items:center;
-  justify-content:space-between;
   gap:16px;
   padding:12px 0;
 }
+.brand{ justify-self:start; }
+nav.primary{ justify-self:center; }
+.cta{ justify-self:end; }
 
 .brand{
   display:flex;
@@ -685,23 +688,40 @@
       .form{ grid-template-columns:1fr; }
     }
     @media (max-width: 560px){
-      header .navwrap{
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 10px 0;
+  .container{ padding:0 14px; }
+
+  /* header stays single-line */
+  .navwrap{
+    grid-template-columns: auto 1fr auto; /* brand | spacer | cta */
+    gap:10px;
+    padding:10px 0;
   }
-      .container{ padding:0 14px; }
-      h1{ font-size:38px; }
-      .stats-grid{ grid-template-columns:1fr; gap:10px; }
-      .brandname{
-    font-size: 22px; /* still “decently large” */
+
+  /* keep brand strong but allow it to fit */
+  .brand{
+    min-width: 0;
+    gap:10px;
   }
-      .stat.divider::after{ display:none; }
-      .cta{
-    width: 100%;
-    justify-content: center;
-    padding: 12px 14px;
+  .brandname{
+    font-size: 20px;          /* still “decently large” */
+    white-space: nowrap;
   }
+
+  /* CTA morphs to fit but stays on same row */
+  .cta{
+    padding: 9px 10px;
+    font-size: 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+    max-width: 160px;         /* prevents it from hogging */
+    overflow: hidden;
+    text-overflow: ellipsis;  /* just in case */
+  }
+
+  /* optional: shorten label on very small screens */
+  .cta .cta-full{ display:none; }
+  .cta .cta-short{ display:inline; }
+}
       .contactbox{ grid-template-columns:1fr; }
     }
   </style>
@@ -724,7 +744,10 @@
       </nav>
 
       <!-- Top right CTA -->
-      <a class="cta" href="#contact" data-scroll="#contact">Schedule Consultation</a>
+      <a class="cta" href="#contact" data-scroll="#contact">
+        <span class="cta-full">Schedule Consultation</span>
+        <span class="cta-short" style="display:none;">Schedule</span>
+      </a>    
     </div>
   </header>
 
