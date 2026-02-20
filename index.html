@@ -707,117 +707,153 @@
           </div>
         </div>
 
-        <aside class="panel" aria-label="Performance snapshot panel">
-          <p class="title">Performance Snapshot</p>
-          <p class="subtitle">Quarterly trend</p>
+        <aside class="panel panel--hero" aria-label="Performance snapshot panel">
+  <div class="panel-head">
+    <div class="panel-title">Performance Snapshot</div>
+    <div class="panel-subtitle">Quarterly trend</div>
+  </div>
 
-          <div class="spark spark--pro" aria-hidden="true">
-  <svg viewBox="0 0 900 360" preserveAspectRatio="none">
-    <defs>
-      <!-- rounded plot mask -->
-      <clipPath id="clip">
-        <rect x="30" y="50" width="840" height="230" rx="18" ry="18"></rect>
-      </clipPath>
+  <div class="chart-shell" aria-hidden="true">
+    <!-- This SVG is “designed”: grid + bars + glow line + grain -->
+    <svg class="chart" viewBox="0 0 840 290" preserveAspectRatio="none">
+      <defs>
+        <!-- rounded clip for chart area -->
+        <clipPath id="clipPlot">
+          <rect x="18" y="14" width="804" height="190" rx="16" ry="16"></rect>
+        </clipPath>
 
-      <!-- gold gradient fill -->
-      <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="rgba(201,163,90,.46)"/>
-        <stop offset="55%" stop-color="rgba(201,163,90,.22)"/>
-        <stop offset="100%" stop-color="rgba(201,163,90,0)"/>
-      </linearGradient>
+        <!-- gold area -->
+        <linearGradient id="goldFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(201,163,90,.42)"/>
+          <stop offset="55%" stop-color="rgba(201,163,90,.16)"/>
+          <stop offset="100%" stop-color="rgba(201,163,90,0)"/>
+        </linearGradient>
 
-      <!-- line glow -->
-      <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-        <feGaussianBlur stdDeviation="3.5" result="blur"/>
-        <feColorMatrix in="blur" type="matrix"
-          values="
-            1 0 0 0 0
-            0 1 0 0 0
-            0 0 1 0 0
-            0 0 0 .85 0" result="soft"/>
-        <feMerge>
-          <feMergeNode in="soft"/>
-          <feMergeNode in="SourceGraphic"/>
-        </feMerge>
-      </filter>
+        <!-- gold line -->
+        <linearGradient id="goldLine" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(201,163,90,.65)"/>
+          <stop offset="55%" stop-color="rgba(201,163,90,.95)"/>
+          <stop offset="100%" stop-color="rgba(201,163,90,.80)"/>
+        </linearGradient>
 
-      <!-- plot vignette -->
-      <linearGradient id="plotVignette" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="rgba(0,0,0,.10)"/>
-        <stop offset="100%" stop-color="rgba(0,0,0,.35)"/>
-      </linearGradient>
-    </defs>
+        <!-- glow -->
+        <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="4" result="b"/>
+          <feColorMatrix in="b" type="matrix"
+            values="1 0 0 0 0
+                    0 1 0 0 0
+                    0 0 1 0 0
+                    0 0 0 .85 0" result="bb"/>
+          <feMerge>
+            <feMergeNode in="bb"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
 
-    <!-- plot frame -->
-    <rect x="30" y="50" width="840" height="230" rx="18" ry="18"
-          fill="rgba(0,0,0,.22)" stroke="rgba(201,163,90,.35)" stroke-width="2"/>
+        <!-- grain/noise overlay -->
+        <filter id="grain">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
+          <feColorMatrix type="matrix"
+            values="0 0 0 0 0
+                    0 0 0 0 0
+                    0 0 0 0 0
+                    0 0 0 .14 0"/>
+        </filter>
 
-    <!-- grid (clipped to rounded plot) -->
-    <g clip-path="url(#clip)" opacity=".32" stroke="rgba(255,255,255,.28)" stroke-width="1">
-      <!-- horizontal -->
-      <line x1="30" y1="96"  x2="870" y2="96"/>
-      <line x1="30" y1="142" x2="870" y2="142"/>
-      <line x1="30" y1="188" x2="870" y2="188"/>
-      <line x1="30" y1="234" x2="870" y2="234"/>
-      <!-- vertical -->
-      <line x1="170" y1="50" x2="170" y2="280"/>
-      <line x1="310" y1="50" x2="310" y2="280"/>
-      <line x1="450" y1="50" x2="450" y2="280"/>
-      <line x1="590" y1="50" x2="590" y2="280"/>
-      <line x1="730" y1="50" x2="730" y2="280"/>
-    </g>
+        <!-- vignette -->
+        <linearGradient id="vign" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(0,0,0,.10)"/>
+          <stop offset="100%" stop-color="rgba(0,0,0,.42)"/>
+        </linearGradient>
+      </defs>
 
-    <!-- AREA + LINE (clipped) -->
-    <g clip-path="url(#clip)">
-      <!-- area fill -->
-      <path d="
-        M 30 238
-        C 95 226, 140 220, 170 210
-        C 230 190, 270 196, 310 182
-        C 360 165, 395 150, 450 148
-        C 510 146, 545 138, 590 118
-        C 645 92, 690 98, 730 86
-        C 785 70, 825 62, 870 52
-        L 870 280
-        L 30 280
-        Z"
-        fill="url(#areaFill)"/>
+      <!-- plot frame -->
+      <rect x="18" y="14" width="804" height="190" rx="16" ry="16"
+            fill="rgba(0,0,0,.22)"
+            stroke="rgba(201,163,90,.28)"
+            stroke-width="2"/>
 
-      <!-- soft vignette over plot -->
-      <rect x="30" y="50" width="840" height="230" fill="url(#plotVignette)" opacity=".45"/>
+      <!-- grid (clipped) -->
+      <g clip-path="url(#clipPlot)" opacity=".33" stroke="rgba(255,255,255,.22)" stroke-width="1">
+        <!-- horizontals -->
+        <line x1="18" y1="52"  x2="822" y2="52"/>
+        <line x1="18" y1="90"  x2="822" y2="90"/>
+        <line x1="18" y1="128" x2="822" y2="128"/>
+        <line x1="18" y1="166" x2="822" y2="166"/>
+        <!-- verticals -->
+        <line x1="150" y1="14" x2="150" y2="204"/>
+        <line x1="282" y1="14" x2="282" y2="204"/>
+        <line x1="414" y1="14" x2="414" y2="204"/>
+        <line x1="546" y1="14" x2="546" y2="204"/>
+        <line x1="678" y1="14" x2="678" y2="204"/>
+      </g>
 
-      <!-- main line -->
-      <path d="
-        M 30 238
-        C 95 226, 140 220, 170 210
-        C 230 190, 270 196, 310 182
-        C 360 165, 395 150, 450 148
-        C 510 146, 545 138, 590 118
-        C 645 92, 690 98, 730 86
-        C 785 70, 825 62, 870 52"
-        fill="none"
-        stroke="rgba(201,163,90,.92)"
-        stroke-width="5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        filter="url(#glow)"/>
-    </g>
-  </svg>
-</div>
+      <!-- bars (clipped) -->
+      <g clip-path="url(#clipPlot)" opacity=".55">
+        <!-- subtle greenish bars like your reference -->
+        <g fill="rgba(118, 158, 120, .20)">
+          <rect x="60"  y="150" width="34" height="54" rx="5"/>
+          <rect x="120" y="140" width="34" height="64" rx="5"/>
+          <rect x="180" y="132" width="34" height="72" rx="5"/>
+          <rect x="240" y="126" width="34" height="78" rx="5"/>
+          <rect x="300" y="114" width="34" height="90" rx="5"/>
+          <rect x="360" y="102" width="34" height="102" rx="5"/>
+          <rect x="420" y="96"  width="34" height="108" rx="5"/>
+          <rect x="480" y="86"  width="34" height="118" rx="5"/>
+          <rect x="540" y="72"  width="34" height="132" rx="5"/>
+          <rect x="600" y="62"  width="34" height="142" rx="5"/>
+          <rect x="660" y="54"  width="34" height="150" rx="5"/>
+          <rect x="720" y="40"  width="34" height="164" rx="5"/>
+        </g>
+      </g>
 
-          <ul class="checklist">
-            <li><span class="check">✓</span> Strategy-to-execution delivery</li>
-            <li><span class="check">✓</span> KPI frameworks &amp; decision velocity</li>
-            <li><span class="check">✓</span> Executive dashboards &amp; reporting</li>
-            <li><span class="check">✓</span> Operational optimization programs</li>
-          </ul>
+      <!-- area + line (clipped) -->
+      <g clip-path="url(#clipPlot)">
+        <path d="
+          M 18 170
+          C 90 160, 130 156, 168 148
+          C 220 136, 256 144, 300 128
+          C 350 110, 392 118, 432 98
+          C 486 72, 524 86, 564 66
+          C 620 40, 662 52, 700 38
+          C 756 20, 792 22, 822 14
+          L 822 204
+          L 18 204 Z"
+          fill="url(#goldFill)"/>
 
-          <div class="panel-cta">
-            <button class="btn wide" type="button" data-scroll="#services">
-              Discover Our Services
-            </button>
-          </div>
-        </aside>
+        <path d="
+          M 18 170
+          C 90 160, 130 156, 168 148
+          C 220 136, 256 144, 300 128
+          C 350 110, 392 118, 432 98
+          C 486 72, 524 86, 564 66
+          C 620 40, 662 52, 700 38
+          C 756 20, 792 22, 822 14"
+          fill="none"
+          stroke="url(#goldLine)"
+          stroke-width="5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          filter="url(#glow)"/>
+      </g>
+
+      <!-- vignette + grain -->
+      <rect x="18" y="14" width="804" height="190" rx="16" ry="16" fill="url(#vign)" opacity=".45"/>
+      <rect x="18" y="14" width="804" height="190" rx="16" ry="16" filter="url(#grain)" opacity=".65"/>
+    </svg>
+  </div>
+
+  <ul class="panel-list">
+    <li><span class="tick"></span><span>Strategy-to-execution delivery</span></li>
+    <li><span class="tick"></span><span>KPI frameworks &amp; decision velocity</span></li>
+    <li><span class="tick"></span><span>Executive dashboards &amp; reporting</span></li>
+    <li><span class="tick"></span><span>Operational optimization programs</span></li>
+  </ul>
+
+  <button class="panel-cta" type="button" data-scroll="#services">
+    Discover Our Services
+  </button>
+</aside>
       </div>
     </div>
   </section>
