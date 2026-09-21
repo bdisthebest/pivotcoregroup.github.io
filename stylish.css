@@ -428,10 +428,7 @@ h1{
 .hero-backdrop-image{
   position:absolute;
   inset:0;
-  background-image: url("images/hero-backdrop.jpeg");
-  background-repeat:no-repeat;
-  background-position:center bottom;
-  background-size:cover;
+  background:#fff;
 
   /* soften + stylize */
   opacity:0.9;
