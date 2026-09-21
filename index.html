@@ -80,13 +80,15 @@
       width: min(100% - 48px, var(--header-width));
     }
 
+/* Header */
+
 .site-header {
   position: sticky;
   top: 0;
   z-index: 50;
-  overflow-x: auto;
   background: rgba(255, 255, 255, 0.98);
-  border-bottom: 1px solid rgba(14, 19, 17, 0.12);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
   backdrop-filter: blur(10px);
 }
 
@@ -94,101 +96,306 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  min-height: auto;
-  padding: 12px 0;
+  width: min(calc(100% - 64px), 1480px);
+  min-height: 110px;
+  margin-inline: auto;
+  gap: 40px;
   white-space: nowrap;
 }
 
 .brand {
   flex: 0 0 auto;
   color: var(--ink);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: 0.8px;
-  line-height: 1.05;
+  letter-spacing: -0.035em;
+  line-height: 1;
   text-decoration: none;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .primary-nav {
   display: flex;
   flex: 0 0 auto;
   align-items: center;
-  gap: 38px;
-  color: var(--ink);
-  font-size: 14px;
+  gap: 40px;
+  color: var(--muted);
+  font-size: 19px;
+  font-weight: 400;
 }
 
 .primary-nav a {
-  padding: 10px 4px;
+  padding: 12px 0;
   color: inherit;
   border: 0;
-  border-radius: 10px;
   text-decoration: none;
-  text-underline-offset: 5px;
-  transition: background 0.18s ease, color 0.18s ease;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1px;
 }
 
 .primary-nav a:hover,
 .primary-nav a:focus-visible {
   color: var(--ink);
   background: transparent;
-  border: 0;
-  text-decoration-line: underline;
+  text-decoration: underline;
 }
 
-    .hero {
-      padding: 86px 0 92px;
-      border-bottom: 1px solid var(--line);
-    }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
-      align-items: center;
-      gap: 88px;
-    }
+/* Hero */
 
-    .eyebrow {
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
+.hero {
+  padding: 122px 0 32px;
+  background: #fff;
+  border-bottom: 0;
+}
 
-    h1,
-    h2,
-    h3,
-    p {
-      margin-top: 0;
-    }
+.hero .container {
+  width: min(calc(100% - 64px), 1480px);
+  max-width: none;
+}
 
-    h1 {
-      max-width: 720px;
-      margin-bottom: 22px;
-      font-size: clamp(42px, 6vw, 68px);
-      font-weight: 700;
-      letter-spacing: -0.045em;
-      line-height: 1.02;
-    }
+.hero-content {
+  max-width: 940px;
+}
 
-    .hero-copy {
-      max-width: 650px;
-      margin-bottom: 0;
-      color: var(--muted);
-      font-size: 19px;
-      line-height: 1.65;
-    }
+.hero h1 {
+  max-width: 920px;
+  margin: 0 0 38px;
+  font-size: clamp(54px, 5vw, 80px);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 1.12;
+}
 
-    .hero-summary {
-      padding: 30px;
-      background: var(--soft);
-      border: 1px solid var(--line);
-      border-radius: 5px;
-    }
+.hero-copy {
+  max-width: 930px;
+  margin: 0;
+  color: var(--muted);
+  font-size: clamp(20px, 1.7vw, 28px);
+  line-height: 1.55;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-top: 52px;
+}
+
+.hero-button {
+  display: inline-flex;
+  min-height: 70px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 34px;
+  color: #fff;
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 4px;
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.hero-button:hover {
+  background: #303336;
+}
+
+.hero-link {
+  padding: 12px 0 7px;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.hero-link:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+
+/* Document comparison */
+
+.document-demo {
+  margin-top: 74px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.document-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.source-document,
+.checked-document {
+  min-height: 450px;
+  padding: 38px 36px;
+}
+
+.source-document {
+  border-right: 1px solid var(--line);
+}
+
+.source-document h2,
+.checked-document h2 {
+  margin: 0 0 36px;
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.statement-copy {
+  color: #9da5ad;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.statement-copy p {
+  margin-bottom: 13px;
+}
+
+.result-list {
+  margin: 0;
+}
+
+.result-list > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 54px;
+  gap: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.result-list > div:last-child {
+  border-bottom: 0;
+}
+
+.result-list dt {
+  color: var(--muted);
+  font-size: 18px;
+}
+
+.result-list dd {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.result-list .review-value {
+  color: #b66f00;
+}
+
+.status-dot {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.status-dot.matched {
+  background: var(--green);
+}
+
+.status-dot.review {
+  background: #b87400;
+}
+
+.document-legend {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  min-height: 72px;
+  padding: 18px 36px;
+  background: var(--soft);
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.document-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.legend-note {
+  color: var(--muted);
+}
+
+
+/* Responsive */
+
+@media (max-width: 800px) {
+  .header-inner {
+    width: min(calc(100% - 32px), 1480px);
+    min-width: max-content;
+    min-height: 82px;
+  }
+
+  .site-header {
+    overflow-x: auto;
+  }
+
+  .primary-nav {
+    gap: 26px;
+    font-size: 15px;
+  }
+
+  .hero {
+    padding-top: 72px;
+  }
+
+  .hero .container {
+    width: min(calc(100% - 32px), 1480px);
+  }
+
+  .hero h1 br {
+    display: none;
+  }
+
+  .hero-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .document-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .source-document {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .source-document,
+  .checked-document {
+    min-height: 0;
+    padding: 28px 22px;
+  }
+
+  .document-legend {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 22px;
+  }
+
+  .document-legend > span {
+    align-items: flex-start;
+  }
+}
 
     .hero-summary h2 {
       margin-bottom: 8px;
@@ -664,49 +871,103 @@
 <body>
 
   <!-- MAIN NAV -->
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="brand" href="#home" aria-label="Pivot Core Group home">
-    Pivot Core Group
-  </a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#home" aria-label="Pivot Core Group home">
+      Pivot Core Group
+    </a>
 
-      <nav class="primary" aria-label="Primary navigation">
-        <a href="#services">What We Do</a>
-        <a href="#process">How It Works</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#contact">Contact</a>
-      </nav>  
+    <nav class="primary-nav" aria-label="Primary navigation">
+      <a href="#services">What we do</a>
+      <a href="#process">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section id="home" class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>
+        Your filings are buried in<br>
+        other people’s PDFs.
+      </h1>
+
+      <p class="hero-copy">
+        We build systems that read the statements, contracts, and filings your business
+        runs on, turn them into records you can file and audit, and flag anything the
+        machine isn’t sure about before it reaches a regulator.
+      </p>
+
+      <div class="hero-actions">
+        <a class="hero-button" href="#contact">Start a conversation</a>
+        <a class="hero-link" href="#pricing">See what it costs</a>
+      </div>
     </div>
-  </header>
 
-  <!-- HERO -->
-  <section id="home" class="hero">
-    <div class="container inner">
-      <div class="hero-grid">
-        <div>
-          <p class="eyebrow">Pivot Core Group</p>
-          <h1>
-            Your filings are Buried in other people's PDFs
-          </h1>
+    <div class="document-demo">
+      <div class="document-columns">
+        <div class="source-document">
+          <h2>Provider statement, as received</h2>
 
-          <p class="hero-copy">
-            We build systems that read the statements, contracts, and filings you business runs on, 
-            turn them into re ords you can file and audit, and flag anything the machine isn't sure
-            about before it reaches a regulator. 
-          </p>
+          <div class="statement-copy" aria-label="Example provider statement">
+            <p>PURCHASER STMT 09/2026&nbsp;&nbsp; PROP 4412-A</p>
+            <p>GROSS MCF ........ 14,207.40</p>
+            <p>BTU FACTOR ........ 1.0413</p>
+            <p>SETTLE PRICE ...... 2.8140 /MMBTU</p>
+            <p>TRANS DEDUCT ...... (1,842.06)</p>
+            <p>OWNER INT ........ .0781250</p>
+          </div>
         </div>
 
-        <aside class="hero-summary" aria-label="What the system handles">
-          <h2>Built for accountable work</h2>
-          <ul class="plain-list">
-            <li>Source-linked extraction</li>
-            <li>Validation and cofidence scoring</li>
-            <li>Review queues for uncertain values</li>
-            <li>Audit-ready records</li>
-          </ul>
-      </aside>
+        <div class="checked-document">
+          <h2>Extracted and checked</h2>
+
+          <dl class="result-list">
+            <div>
+              <dt>Sales volume</dt>
+              <dd>14,207.40 Mcf <span class="status-dot matched"></span></dd>
+            </div>
+            <div>
+              <dt>BTU adjustment</dt>
+              <dd>1.0413 <span class="status-dot matched"></span></dd>
+            </div>
+            <div>
+              <dt>Settlement price</dt>
+              <dd>$2.8140 <span class="status-dot matched"></span></dd>
+            </div>
+            <div>
+              <dt>Transportation allowance</dt>
+              <dd class="review-value">$1,842.06 <span class="status-dot review"></span></dd>
+            </div>
+            <div>
+              <dt>Owner interest</dt>
+              <dd>0.0781250 <span class="status-dot matched"></span></dd>
+            </div>
+            <div>
+              <dt>Royalty due</dt>
+              <dd>$3,108.49 <span class="status-dot matched"></span></dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="document-legend">
+        <span>
+          <span class="status-dot matched"></span>
+          <strong>Matched to source</strong>
+        </span>
+
+        <span>
+          <span class="status-dot review"></span>
+          <strong>Held for review</strong>
+          <span class="legend-note">— allowance exceeds the prior three months</span>
+        </span>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- SERVICES -->
   <section id="services" class="section">
